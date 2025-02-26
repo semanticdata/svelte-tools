@@ -6,9 +6,13 @@ A collection of simple utility tools built with Astro and Svelte.
 
 ### Simple Tools
 
+- **Unit Converter** - Convert units of measurement
+- **Pomodor Timer** - A simple pomodoro timer
+
+### Calculators
+
 - **Asphalt Calculator** - Calculate the amount of asphalt needed for a project
 - **Area Calculator** - Calculate the area of a shape
-- **Unit Converter** - Convert units of measurement
 - **Volume Calculator** - Calculate the volume of a shape
 
 ### Text Tools
