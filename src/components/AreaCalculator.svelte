@@ -60,7 +60,7 @@
     }
 </script>
 
-<div class="bg-white rounded-lg shadow-md p-6 max-w-7xl mx-auto my-8">
+<div class="bg-white rounded-lg shadow-md p-6 max-w-7xl mx-auto my-4">
     <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
         Area Calculator
     </h2>

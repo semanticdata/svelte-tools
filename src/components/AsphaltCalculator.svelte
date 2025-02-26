@@ -40,7 +40,7 @@
   };
 </script>
 
-<div class="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto my-8">
+<div class="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto my-4">
   <h2 class="text-2xl font-bold text-gray-800 mb-6">Asphalt Calculator</h2>
 
   <div class="mb-4">
