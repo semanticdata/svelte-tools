@@ -9,10 +9,17 @@ A collection of simple utility tools built with Astro and Svelte.
 - **Asphalt Calculator** - Calculate the amount of asphalt needed for a project
 - **Area Calculator** - Calculate the area of a shape
 - **Unit Converter** - Convert units of measurement
+- **Volume Calculator** - Calculate the volume of a shape
+
+### Text Tools
+
+- **Text Comparer** - Compare two texts and see the differences
+- **Link Checker** - Check URLs for broken links
 
 ### Regex Tools
 
 - **Address Extractor** - Extract and organize street addresses from any text
+- **Link Checker** - Check URLs for broken links
 
 ## 🚀 Project Structure
 
