@@ -85,7 +85,7 @@
                         bind:value={inputText}
                         placeholder="Paste your text containing addresses here..."
                         spellcheck="false"
-                    />
+                    ></textarea>
                 </div>
 
                 <div class="button-group">
