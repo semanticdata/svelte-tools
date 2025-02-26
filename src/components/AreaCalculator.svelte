@@ -7,6 +7,8 @@
     let width = "";
     let base = "";
     let height = "";
+    let radius = "";
+    let angle = "";
     let area = 0;
     let selectedUnit = "inches";
 
@@ -15,6 +17,8 @@
     $: numWidth = parseFloat(width) || 0;
     $: numBase = parseFloat(base) || 0;
     $: numHeight = parseFloat(height) || 0;
+    $: numRadius = parseFloat(radius) || 0;
+    $: numAngle = parseFloat(angle) || 0;
 
     // Calculate area based on selected shape
     $: {
@@ -22,6 +26,10 @@
             area = numLength * numWidth;
         } else if (selectedShape === "triangle") {
             area = (numBase * numHeight) / 2;
+        } else if (selectedShape === "arc") {
+            // Area of an arc = (θ/360) * π * r²
+            // where θ is the angle in degrees
+            area = (numAngle / 360) * Math.PI * numRadius * numRadius;
         }
 
         // Round to 2 decimal places
@@ -32,7 +40,9 @@
     $: hasAllRequiredValues =
         selectedShape === "rectangle"
             ? numLength > 0 && numWidth > 0
-            : numBase > 0 && numHeight > 0;
+            : selectedShape === "triangle"
+              ? numBase > 0 && numHeight > 0
+              : numRadius > 0 && numAngle > 0 && numAngle <= 360;
 
     // Format number to 2 decimal places
     const formatNumber = (num) => {
@@ -45,6 +55,8 @@
         width = "";
         base = "";
         height = "";
+        radius = "";
+        angle = "";
     }
 </script>
 
@@ -58,7 +70,7 @@
             <legend class="block text-gray-700 font-medium mb-2"
                 >Select Shape</legend
             >
-            <div class="flex gap-4">
+            <div class="flex gap-4 flex-wrap">
                 <label class="flex items-center cursor-pointer">
                     <input
                         type="radio"
@@ -79,6 +91,17 @@
                         class="form-radio h-5 w-5 text-blue-600"
                     />
                     <span class="ml-2 text-gray-700">Triangle</span>
+                </label>
+
+                <label class="flex items-center cursor-pointer">
+                    <input
+                        type="radio"
+                        bind:group={selectedShape}
+                        value="arc"
+                        on:change={handleShapeChange}
+                        class="form-radio h-5 w-5 text-blue-600"
+                    />
+                    <span class="ml-2 text-gray-700">Arc</span>
                 </label>
             </div>
         </fieldset>
@@ -154,6 +177,42 @@
                 />
             </div>
         </div>
+    {:else if selectedShape === "arc"}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="space-y-2">
+                <label
+                    for="radius"
+                    class="block text-gray-700 font-medium mb-2"
+                >
+                    Radius
+                </label>
+                <input
+                    type="number"
+                    id="radius"
+                    bind:value={radius}
+                    min="0"
+                    step="0.01"
+                    placeholder="Enter radius"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+
+            <div class="space-y-2">
+                <label for="angle" class="block text-gray-700 font-medium mb-2">
+                    Angle (degrees)
+                </label>
+                <input
+                    type="number"
+                    id="angle"
+                    bind:value={angle}
+                    min="0"
+                    max="360"
+                    step="0.1"
+                    placeholder="Enter angle (0-360)"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+        </div>
     {/if}
 
     <div class="mb-6">
@@ -193,9 +252,12 @@
                     {#if selectedShape === "rectangle"}
                         Please enter valid length and width values to see
                         calculation results.
-                    {:else}
+                    {:else if selectedShape === "triangle"}
                         Please enter valid base and height values to see
                         calculation results.
+                    {:else}
+                        Please enter valid radius and angle values (0-360) to
+                        see calculation results.
                     {/if}
                 </p>
             </div>
