@@ -14,7 +14,6 @@
     class="flex flex-col items-center justify-center p-6 bg-white rounded-lg shadow-md"
 >
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Interactive Counter</h2>
-
     <div class="flex items-center space-x-4">
         <button
             on:click={decrement}
@@ -33,7 +32,5 @@
         </button>
     </div>
 
-    <p class="mt-4 text-gray-600">
-        Current count: {count}
-    </p>
+    <p class="mt-4 text-gray-600">Current count: {count}</p>
 </div>
