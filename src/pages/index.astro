@@ -1,12 +1,22 @@
 ---
 import Card from "../components/Card.svelte";
 import NewLayout from "../layouts/NewLayout.astro";
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Section from "../components/Section.svelte";
 ---
 
 <NewLayout>
-	<div class="flex flex-wrap max-w-7xl mx-auto">
+	<Section title="Simple Tools">
+		<Card
+			title="Asphalt Calculator"
+			description="Calculate the amount of asphalt needed for a project"
+			link="/asphalt-calculator"
+		/>
+		<Card title="Card 2" description="This is the second card" />
+		<Card title="Card 3" description="This is the third card" />
+		<Card title="Card 4" description="This is the fourth card" />
+	</Section>
+
+	<Section title="Regex Tools">
 		<Card
 			title="Address Extractor"
 			description="Extract and organize street addresses from any text"
@@ -15,5 +25,5 @@ import NewLayout from "../layouts/NewLayout.astro";
 		<Card title="Card 2" description="This is the second card" />
 		<Card title="Card 3" description="This is the third card" />
 		<Card title="Card 4" description="This is the fourth card" />
-	</div>
+	</Section>
 </NewLayout>
