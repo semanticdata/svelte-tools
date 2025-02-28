@@ -1,12 +1,12 @@
 <script>
-    import { onMount } from 'svelte';
-    import axios from 'axios';
+    import { onMount } from "svelte";
+    import axios from "axios";
 
-    let url = '';
+    let url = "";
     let isLoading = false;
     let results = null;
     let useMockData = false;
-    
+
     // Mock data for testing
     const mockUrls = [
         "https://www.example.com",
@@ -36,7 +36,7 @@
         const urlRegex = /href="(http[s]?:\/\/[^"]+|\/[^"]+)"/g;
         const urls = [];
         let match;
-        
+
         while ((match = urlRegex.exec(html)) !== null) {
             let extractedUrl = match[1];
             // Convert relative URLs to absolute URLs
@@ -82,7 +82,10 @@
                 for (const link of urls) {
                     try {
                         await axios.get(link);
-                        workingLinks.push({ url: link, text: "Link is reachable" });
+                        workingLinks.push({
+                            url: link,
+                            text: "Link is reachable",
+                        });
                     } catch (error) {
                         brokenLinks.push(link);
                     }
@@ -96,10 +99,10 @@
                 summary: {
                     total: urls.length,
                     broken: brokenLinks.length,
-                    working: workingLinks.length
+                    working: workingLinks.length,
                 },
                 workingLinks,
-                brokenLinks
+                brokenLinks,
             };
         } catch (error) {
             results = { error: error.message };
@@ -113,15 +116,15 @@
     <h1 class="text-3xl font-bold mb-6">Broken Link Checker</h1>
 
     <div class="flex flex-col md:flex-row gap-4 mb-4">
-        <input 
-            type="url" 
-            bind:value={url} 
-            class="flex-grow p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" 
-            placeholder="Enter website URL (e.g., https://www.example.com)" 
+        <input
+            type="url"
+            bind:value={url}
+            class="flex-grow p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter website URL (e.g., https://www.example.com)"
             required
-        >
-        <button 
-            on:click={checkLinks} 
+        />
+        <button
+            on:click={checkLinks}
             disabled={isLoading}
             class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded disabled:opacity-50"
         >
@@ -131,14 +134,19 @@
 
     <div class="mb-6">
         <label class="flex items-center cursor-pointer">
-            <input type="checkbox" bind:checked={useMockData} class="form-checkbox h-5 w-5 text-blue-600">
+            <input
+                type="checkbox"
+                bind:checked={useMockData}
+                class="form-checkbox h-5 w-5 text-blue-600"
+            />
             <span class="ml-2 text-gray-700">Use Mock Data</span>
         </label>
     </div>
 
     {#if isLoading}
         <div class="bg-gray-100 p-4 rounded text-center mb-6">
-            Checking links... This may take a few minutes depending on the website size.
+            Checking links... This may take a few minutes depending on the
+            website size.
         </div>
     {/if}
 
@@ -150,9 +158,9 @@
                 </div>
             {:else}
                 <div class="bg-gray-100 p-4 rounded mb-6">
-                    <strong>Summary:</strong><br>
-                    Total links checked: {results.summary.total}<br>
-                    Broken links found: {results.summary.broken}<br>
+                    <strong>Summary:</strong><br />
+                    Total links checked: {results.summary.total}<br />
+                    Broken links found: {results.summary.broken}<br />
                     Working links: {results.summary.working}
                 </div>
 
@@ -160,9 +168,15 @@
                     <h2 class="text-xl font-semibold mb-3">Working Links</h2>
                     <div class="space-y-2 mb-6">
                         {#each results.workingLinks as link}
-                            <div class="border-l-4 border-green-500 bg-green-50 p-3 rounded">
-                                <div class="font-medium break-all">{link.url}</div>
-                                <div class="text-sm text-green-700">{link.text}</div>
+                            <div
+                                class="border-l-4 border-green-500 bg-green-50 p-3 rounded"
+                            >
+                                <div class="font-medium break-all">
+                                    {link.url}
+                                </div>
+                                <div class="text-sm text-green-700">
+                                    {link.text}
+                                </div>
                             </div>
                         {/each}
                     </div>
@@ -172,9 +186,13 @@
                     <h2 class="text-xl font-semibold mb-3">Broken Links</h2>
                     <div class="space-y-2">
                         {#each results.brokenLinks as link}
-                            <div class="border-l-4 border-red-500 bg-red-50 p-3 rounded">
+                            <div
+                                class="border-l-4 border-red-500 bg-red-50 p-3 rounded"
+                            >
                                 <div class="font-medium break-all">{link}</div>
-                                <div class="text-sm text-red-700">Link is broken</div>
+                                <div class="text-sm text-red-700">
+                                    Link is broken
+                                </div>
                             </div>
                         {/each}
                     </div>
@@ -183,7 +201,3 @@
         </div>
     {/if}
 </div>
-
-<style>
-    /* Additional component-specific styles can be added here if needed */
-</style>

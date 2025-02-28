@@ -67,32 +67,38 @@
 </script>
 
 {#if true}
-    <div class="container">
-        <header class="app-header">
-            <h1 class="app-title">Address Extractor</h1>
-            <p class="app-description">
+    <div class="max-w-3xl mx-auto p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl text-gray-800 mb-2">Address Extractor</h1>
+            <p class="text-lg text-gray-600">
                 Extract and organize street addresses from any text
             </p>
         </header>
 
         <main>
-            <div class="card">
-                <div class="input-group">
-                    <label for="inputText" class="input-label">Input Text</label
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="mb-6">
+                    <label
+                        for="inputText"
+                        class="block font-semibold mb-2 text-gray-800"
+                        >Input Text</label
                     >
                     <textarea
                         id="inputText"
                         bind:value={inputText}
                         placeholder="Paste your text containing addresses here..."
                         spellcheck="false"
+                        class="w-full min-h-[150px] p-3 border border-gray-200 rounded-lg text-base leading-normal resize-y"
                     ></textarea>
                 </div>
 
-                <div class="button-group">
-                    <button on:click={extractAddresses} class="primary-button">
+                <div class="flex gap-4 mb-6">
+                    <button
+                        on:click={extractAddresses}
+                        class="flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors"
+                    >
                         <svg
-                            width="20"
-                            height="20"
+                            class="w-5 h-5"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -106,10 +112,12 @@
                         </svg>
                         Extract Addresses
                     </button>
-                    <button on:click={clearAll} class="secondary-button">
+                    <button
+                        on:click={clearAll}
+                        class="flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold rounded-lg transition-colors"
+                    >
                         <svg
-                            width="20"
-                            height="20"
+                            class="w-5 h-5"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -126,19 +134,26 @@
                 </div>
 
                 {#if feedback}
-                    <div class="feedback {feedbackType}">{feedback}</div>
+                    <div
+                        class="p-4 rounded-lg mb-6 {feedbackType === 'success'
+                            ? 'bg-green-100 text-green-700'
+                            : 'bg-red-100 text-red-700'}"
+                    >
+                        {feedback}
+                    </div>
                 {/if}
 
-                <div class="results-container">
-                    <div class="results-header">
-                        <h2 class="results-title">Extracted Addresses</h2>
+                <div class="mt-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl text-gray-800 m-0">
+                            Extracted Addresses
+                        </h2>
                         <button
                             on:click={copyAddresses}
-                            class="secondary-button"
+                            class="flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold rounded-lg transition-colors"
                         >
                             <svg
-                                width="20"
-                                height="20"
+                                class="w-5 h-5"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -153,10 +168,14 @@
                             Copy All
                         </button>
                     </div>
-                    <ul class="address-list">
+                    <ul class="list-none p-0 m-0">
                         {#each addresses as address, index}
-                            <li class="address-item">
-                                <span class="address-number">{index + 1}.</span>
+                            <li
+                                class="flex gap-4 py-3 border-b border-gray-200 last:border-b-0"
+                            >
+                                <span class="text-gray-500 min-w-[2rem]"
+                                    >{index + 1}.</span
+                                >
                                 <span>{address}</span>
                             </li>
                         {/each}
@@ -166,147 +185,3 @@
         </main>
     </div>
 {/if}
-
-<style>
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
-    }
-
-    .app-header {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    .app-title {
-        font-size: 2.5rem;
-        color: #2d3748;
-        margin-bottom: 0.5rem;
-    }
-
-    .app-description {
-        color: #4a5568;
-        font-size: 1.1rem;
-    }
-
-    .card {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
-    }
-
-    .input-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .input-label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: #2d3748;
-    }
-
-    textarea {
-        width: 100%;
-        min-height: 150px;
-        padding: 0.75rem;
-        border: 1px solid #e2e8f0;
-        border-radius: 6px;
-        font-size: 1rem;
-        line-height: 1.5;
-        resize: vertical;
-    }
-
-    .button-group {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    button {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 6px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .primary-button {
-        background-color: #4299e1;
-        color: white;
-    }
-
-    .primary-button:hover {
-        background-color: #3182ce;
-    }
-
-    .secondary-button {
-        background-color: #edf2f7;
-        color: #4a5568;
-    }
-
-    .secondary-button:hover {
-        background-color: #e2e8f0;
-    }
-
-    .feedback {
-        padding: 1rem;
-        border-radius: 6px;
-        margin-bottom: 1.5rem;
-    }
-
-    .feedback.success {
-        background-color: #c6f6d5;
-        color: #2f855a;
-    }
-
-    .feedback.error {
-        background-color: #fed7d7;
-        color: #c53030;
-    }
-
-    .results-container {
-        margin-top: 2rem;
-    }
-
-    .results-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-
-    .results-title {
-        font-size: 1.5rem;
-        color: #2d3748;
-        margin: 0;
-    }
-
-    .address-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .address-item {
-        display: flex;
-        gap: 1rem;
-        padding: 0.75rem;
-        border-bottom: 1px solid #e2e8f0;
-    }
-
-    .address-item:last-child {
-        border-bottom: none;
-    }
-
-    .address-number {
-        color: #718096;
-        min-width: 2rem;
-    }
-</style>

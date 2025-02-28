@@ -84,24 +84,35 @@
     });
 </script>
 
-<div class="pomodoro-timer mx-auto my-4">
-    <div class="mode-selector">
+<div
+    class="max-w-[300px] mx-auto my-4 text-center p-5 rounded-lg shadow-md bg-gray-50 font-sans"
+>
+    <div class="flex justify-center gap-1 mb-4">
         <button
-            class="mode-button {currentMode === 'pomodoro' ? 'active' : ''}"
+            class="px-2 py-2 text-sm bg-gray-200 text-gray-700 rounded cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed {currentMode ===
+            'pomodoro'
+                ? 'bg-blue-500 text-white'
+                : ''}"
             on:click={() => setMode("pomodoro")}
             disabled={isRunning || isPaused}
         >
             {modes.pomodoro.name}
         </button>
         <button
-            class="mode-button {currentMode === 'longBreak' ? 'active' : ''}"
+            class="px-2 py-2 text-sm bg-gray-200 text-gray-700 rounded cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed {currentMode ===
+            'longBreak'
+                ? 'bg-blue-500 text-white'
+                : ''}"
             on:click={() => setMode("longBreak")}
             disabled={isRunning || isPaused}
         >
             {modes.longBreak.name}
         </button>
         <button
-            class="mode-button {currentMode === 'shortBreak' ? 'active' : ''}"
+            class="px-2 py-2 text-sm bg-gray-200 text-gray-700 rounded cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed {currentMode ===
+            'shortBreak'
+                ? 'bg-blue-500 text-white'
+                : ''}"
             on:click={() => setMode("shortBreak")}
             disabled={isRunning || isPaused}
         >
@@ -109,119 +120,40 @@
         </button>
     </div>
 
-    <div class="timer-display">
+    <div class="text-5xl font-bold mb-5 text-gray-800">
         <span class="minutes">{formatNumber(minutes)}</span>
-        <span class="separator">:</span>
+        <span class="animate-pulse">:</span>
         <span class="seconds">{formatNumber(seconds)}</span>
     </div>
 
-    <div class="controls">
+    <div class="flex justify-center gap-2">
         {#if !isRunning && !isPaused}
-            <button class="start-button" on:click={startTimer}> Start </button>
+            <button
+                class="px-5 py-2 rounded text-base bg-green-500 text-white hover:opacity-90 transition-colors duration-300"
+                on:click={startTimer}
+            >
+                Start
+            </button>
         {:else if isRunning}
-            <button class="pause-button" on:click={pauseTimer}> Pause </button>
+            <button
+                class="px-5 py-2 rounded text-base bg-yellow-400 text-gray-800 hover:opacity-90 transition-colors duration-300"
+                on:click={pauseTimer}
+            >
+                Pause
+            </button>
         {:else if isPaused}
-            <button class="resume-button" on:click={resumeTimer}>
+            <button
+                class="px-5 py-2 rounded text-base bg-green-500 text-white hover:opacity-90 transition-colors duration-300"
+                on:click={resumeTimer}
+            >
                 Resume
             </button>
         {/if}
-        <button class="reset-button" on:click={resetTimer}> Reset </button>
+        <button
+            class="px-5 py-2 rounded text-base bg-red-500 text-white hover:opacity-90 transition-colors duration-300"
+            on:click={resetTimer}
+        >
+            Reset
+        </button>
     </div>
 </div>
-
-<style>
-    .pomodoro-timer {
-        font-family: "Arial", sans-serif;
-        max-width: 300px;
-        /* margin: 0 auto; */
-        text-align: center;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        background-color: #f8f9fa;
-    }
-
-    .mode-selector {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        margin-bottom: 15px;
-    }
-
-    .mode-button {
-        padding: 8px 10px;
-        font-size: 0.8rem;
-        background-color: #e9ecef;
-        color: #495057;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .mode-button.active {
-        background-color: #007bff;
-        color: white;
-    }
-
-    .mode-button:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-
-    .timer-display {
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: #343a40;
-    }
-
-    .separator {
-        animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-        50% {
-            opacity: 0.5;
-        }
-    }
-
-    .controls {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .start-button,
-    .resume-button {
-        background-color: #28a745;
-        color: white;
-    }
-
-    .pause-button {
-        background-color: #ffc107;
-        color: #212529;
-    }
-
-    button:disabled {
-        background-color: #6c757d;
-        cursor: not-allowed;
-    }
-
-    .reset-button {
-        background-color: #dc3545;
-        color: white;
-    }
-
-    button:hover:not(:disabled) {
-        opacity: 0.9;
-    }
-</style>
