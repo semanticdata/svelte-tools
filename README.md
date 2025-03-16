@@ -25,26 +25,6 @@ A collection of simple utility tools built with Astro and Svelte.
 - **Address Extractor** - Extract and organize street addresses from any text
 - **Link Checker** - Check URLs for broken links
 
-## 🚀 Project Structure
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── UI components built with Svelte
-│   ├── layouts/
-│   │   └── Page layouts
-│   ├── pages/
-│   │   └── Astro pages for each tool
-│   ├── styles/
-│   │   └── Global styles
-│   └── assets/
-│       └── Static assets
-└── package.json
-```
-
 ## 🛠️ Tech Stack
 
 - [Astro](https://astro.build/) - Web framework for content-focused websites
@@ -64,11 +44,3 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`      | Preview your build locally, before deploying     |
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
 | `npm run check`        | Run type checking with TypeScript                |
-
-## 🚧 Development
-
-To add a new tool:
-
-1. Create a new page in `src/pages/`
-2. Add the tool to the appropriate section in `src/pages/index.astro`
-3. Implement the tool's functionality using Svelte components
