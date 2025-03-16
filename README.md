@@ -11,6 +11,7 @@ A collection of simple utility tools built with Astro and Svelte.
 - [x] Link Checker
 - [x] Lorem Ipsum Generator
 - [x] Pomodoro Timer
+- [x] Regular Expression Tester
 - [x] Text Comparer
 - [x] Unit Converter
 - [x] Volume Calculator
@@ -19,7 +20,6 @@ A collection of simple utility tools built with Astro and Svelte.
 - [ ] CSV/JSON Converter
 - [ ] Measurement Converter (Imperial/Metric)
 - [ ] Password Generator
-- [ ] Regular Expression Tester
 - [ ] String Case Converter
 - [ ] UUID Generator
 
