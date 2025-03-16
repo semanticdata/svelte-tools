@@ -1,7 +1,15 @@
 <script lang="ts">
-  let pattern = "";
+  let pattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
   let flags = "g";
-  let testString = "";
+  let testString = `Valid emails:
+john.doe@example.com
+mary_smith123@company.co.uk
+
+Invalid emails:
+invalid@email
+@incomplete.com
+missing.domain@
+just.text`;
   let error = "";
   let matches: RegExpMatchArray | null = null;
 
