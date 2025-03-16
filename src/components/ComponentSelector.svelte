@@ -9,6 +9,7 @@
   import TextComparer from "./tools/TextComparer.svelte";
   import UnitConverter from "./tools/UnitConverter.svelte";
   import VolumeCalculator from "./tools/VolumeCalculator.svelte";
+  import RegexTester from "./tools/RegexTester.svelte";
 
   export let initialComponent: string | null = null;
 
@@ -22,7 +23,8 @@
     | typeof PomodoroTimer
     | typeof TextComparer
     | typeof UnitConverter
-    | typeof VolumeCalculator;
+    | typeof VolumeCalculator
+    | typeof RegexTester;
 
   const components: { [key: string]: ComponentType } = {
     AddressExtractor,
@@ -35,6 +37,7 @@
     TextComparer,
     UnitConverter,
     VolumeCalculator,
+    RegexTester,
   };
 
   let selectedComponent: keyof typeof components | null = initialComponent;
@@ -75,6 +78,11 @@
         id: "AddressExtractor",
         name: "Address Extractor",
         component: AddressExtractor,
+      },
+      {
+        id: "RegexTester",
+        name: "Regex Tester",
+        component: RegexTester,
       },
     ],
     Utilities: [
