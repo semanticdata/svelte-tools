@@ -2,28 +2,26 @@
 
 A collection of simple utility tools built with Astro and Svelte.
 
-## 🧰 Available Tools
+## 🧰 Featured Tools
 
-### Simple Tools
-
-- **Unit Converter** - Convert units of measurement
-- **Pomodor Timer** - A simple pomodoro timer
-
-### Calculators
-
-- **Asphalt Calculator** - Calculate the amount of asphalt needed for a project
-- **Area Calculator** - Calculate the area of a shape
-- **Volume Calculator** - Calculate the volume of a shape
-
-### Text Tools
-
-- **Text Comparer** - Compare two texts and see the differences
-- **Link Checker** - Check URLs for broken links
-
-### Regex Tools
-
-- **Address Extractor** - Extract and organize street addresses from any text
-- **Link Checker** - Check URLs for broken links
+- [x] Address Extractor
+- [x] Area Calculator
+- [x] Asphalt Calculator
+- [x] Link Checker
+- [x] Lorem Ipsum Generator
+- [x] Pomodoro Timer
+- [x] Text Comparer
+- [x] Unit Converter
+- [x] Volume Calculator
+- [ ] Base Converter (Binary, Hex, Decimal)
+- [ ] Color Converter (RGB, HSL, HEX)
+- [ ] CSV/JSON Converter
+- [ ] Date Calculator
+- [ ] Measurement Converter (Imperial/Metric)
+- [ ] Password Generator
+- [ ] Regular Expression Tester
+- [ ] String Case Converter
+- [ ] UUID Generator
 
 ## 🛠️ Tech Stack
 
