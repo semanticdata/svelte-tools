@@ -1,5 +1,4 @@
 ---
-import Card from "../components/Card.svelte";
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.svelte";
 import ComponentSelector from "../components/ComponentSelector.svelte";
@@ -8,7 +7,7 @@ const selected = Astro.url.searchParams.get("component");
 ---
 
 <Layout>
-  <Section title="Component Loader">
+  <Section>
     <ComponentSelector client:load initialComponent={selected} />
   </Section>
 </Layout>

@@ -37,31 +37,81 @@
   let selectedComponent: keyof typeof components | null = initialComponent;
   let Component = selectedComponent ? components[selectedComponent] : null;
 
-  function handleChange(event: Event) {
-    const value = (event.target as HTMLSelectElement).value;
-    selectedComponent = value;
-    Component = value ? components[value] : null;
+  const componentCategories = {
+    Calculators: [
+      {
+        id: "AreaCalculator",
+        name: "Area Calculator",
+        component: AreaCalculator,
+      },
+      {
+        id: "AsphaltCalculator",
+        name: "Asphalt Calculator",
+        component: AsphaltCalculator,
+      },
+      {
+        id: "VolumeCalculator",
+        name: "Volume Calculator",
+        component: VolumeCalculator,
+      },
+      { id: "UnitConverter", name: "Unit Converter", component: UnitConverter },
+    ],
+    "Text Tools": [
+      { id: "TextComparer", name: "Text Comparer", component: TextComparer },
+      {
+        id: "LoremGenerator",
+        name: "Lorem Generator",
+        component: LoremGenerator,
+      },
+      {
+        id: "AddressExtractor",
+        name: "Address Extractor",
+        component: AddressExtractor,
+      },
+    ],
+    Utilities: [
+      { id: "LinkChecker", name: "Link Checker", component: LinkChecker },
+      { id: "PomodoroTimer", name: "Pomodoro Timer", component: PomodoroTimer },
+    ],
+  };
+
+  function selectComponent(componentId: string) {
+    selectedComponent = componentId;
+    Component = components[componentId];
     const url = new URL(window.location.href);
-    url.searchParams.set("component", value);
+    url.searchParams.set("component", componentId);
     history.pushState({}, "", url);
   }
 </script>
 
-<div class="component-container mx-4">
-  <select bind:value={selectedComponent} on:change={handleChange}>
-    <option value="">Select a component...</option>
-    <option value="AddressExtractor">Address Extractor</option>
-    <option value="AreaCalculator">Area Calculator</option>
-    <option value="AsphaltCalculator">Asphalt Calculator</option>
-    <option value="LinkChecker">Link Checker</option>
-    <option value="LoremGenerator">Lorem Generator</option>
-    <option value="PomodoroTimer">Pomodoro Timer</option>
-    <option value="TextComparer">Text Comparer</option>
-    <option value="UnitConverter">Unit Converter</option>
-    <option value="VolumeCalculator">Volume Calculator</option>
-  </select>
+<div class="mx-4">
+  {#if !Component}
+    <div class="grid gap-6">
+      {#each Object.entries(componentCategories) as [category, items]}
+        <div class="category-section">
+          <h2 class="text-xl font-bold mb-3">{category}</h2>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+          >
+            {#each items as { id, name }}
+              <button
+                class="p-4 border rounded-lg hover:bg-gray-50 text-left transition-colors"
+                on:click={() => selectComponent(id)}
+              >
+                <h3 class="font-medium">{name}</h3>
+              </button>
+            {/each}
+          </div>
+        </div>
+      {/each}
+    </div>
+  {:else}
+    <button
+      class="mb-4 px-4 py-2 border rounded-lg hover:bg-gray-50"
+      on:click={() => selectComponent("")}
+    >
+      ← Back to Tools
+    </button>
+    <svelte:component this={Component} />
+  {/if}
 </div>
-
-{#if Component}
-  <svelte:component this={Component} />
-{/if}
