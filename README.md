@@ -7,6 +7,7 @@ A collection of simple utility tools built with Astro and Svelte.
 - [x] Address Extractor
 - [x] Area Calculator
 - [x] Asphalt Calculator
+- [x] Date Calculator
 - [x] Link Checker
 - [x] Lorem Ipsum Generator
 - [x] Pomodoro Timer
@@ -16,7 +17,6 @@ A collection of simple utility tools built with Astro and Svelte.
 - [ ] Base Converter (Binary, Hex, Decimal)
 - [ ] Color Converter (RGB, HSL, HEX)
 - [ ] CSV/JSON Converter
-- [ ] Date Calculator
 - [ ] Measurement Converter (Imperial/Metric)
 - [ ] Password Generator
 - [ ] Regular Expression Tester

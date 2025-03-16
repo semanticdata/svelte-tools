@@ -2,6 +2,7 @@
   import AddressExtractor from "./tools/AddressExtractor.svelte";
   import AreaCalculator from "./tools/AreaCalculator.svelte";
   import AsphaltCalculator from "./tools/AsphaltCalculator.svelte";
+  import DateCalculator from "./tools/DateCalculator.svelte";
   import LinkChecker from "./tools/LinkChecker.svelte";
   import LoremGenerator from "./tools/LoremGenerator.svelte";
   import PomodoroTimer from "./tools/PomodoroTimer.svelte";
@@ -15,6 +16,7 @@
     | typeof AddressExtractor
     | typeof AreaCalculator
     | typeof AsphaltCalculator
+    | typeof DateCalculator
     | typeof LinkChecker
     | typeof LoremGenerator
     | typeof PomodoroTimer
@@ -26,6 +28,7 @@
     AddressExtractor,
     AreaCalculator,
     AsphaltCalculator,
+    DateCalculator,
     LinkChecker,
     LoremGenerator,
     PomodoroTimer,
@@ -48,6 +51,11 @@
         id: "AsphaltCalculator",
         name: "Asphalt Calculator",
         component: AsphaltCalculator,
+      },
+      {
+        id: "DateCalculator",
+        name: "Date Calculator",
+        component: DateCalculator,
       },
       {
         id: "VolumeCalculator",
