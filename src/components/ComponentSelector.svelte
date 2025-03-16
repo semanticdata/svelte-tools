@@ -95,10 +95,10 @@
           >
             {#each items as { id, name }}
               <button
-                class="p-4 border rounded-lg hover:bg-gray-50 text-left transition-colors"
+                class="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-left"
                 on:click={() => selectComponent(id)}
               >
-                <h3 class="font-medium">{name}</h3>
+                <span class="text-gray-800">{name}</span>
               </button>
             {/each}
           </div>
@@ -107,7 +107,7 @@
     </div>
   {:else}
     <button
-      class="mb-4 px-4 py-2 border rounded-lg hover:bg-gray-50"
+      class="mb-6 px-4 py-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
       on:click={() => selectComponent("")}
     >
       ← Back to Tools
