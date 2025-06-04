@@ -23,32 +23,46 @@ A collection of simple utility tools built with Astro and Svelte.
 - [ ] String Case Converter
 - [ ] UUID Generator
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18.0.0 or higher
+- npm, _pnpm_, or yarn package manager
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/semanticdata/svelte-tools.git
+   cd linktree
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+   Your site will be available at `http://localhost:4321`
+
+## Dev Todo
+
+- Consistency improvements
+  - Component layout/structure
+  - Form validation and error handling
+  - Type Safety with strict null checks? Maybe
+
 ## 🛠️ Tech Stack
 
 - [Astro](https://astro.build/) - Web framework for content-focused websites
 - [Svelte](https://svelte.dev/) - Component framework
 - [TailwindCSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:4321`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run check`        | Run type checking with TypeScript                |
-
-## Dev Todo
-
-- Consistency improvements
-  - Component layout/structure
-  - Spacing and padding
-  - Form validation and error handling
-  - Concern separation
-  - Use TailwindCSS
-  - Type Safety with strict null checks? Maybe
