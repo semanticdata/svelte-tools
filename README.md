@@ -42,3 +42,13 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`      | Preview your build locally, before deploying     |
 | `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
 | `npm run check`        | Run type checking with TypeScript                |
+
+## Dev Todo
+
+- Consistency improvements
+  - Component layout/structure
+  - Spacing and padding
+  - Form validation and error handling
+  - Concern separation
+  - Use TailwindCSS
+  - Type Safety with strict null checks? Maybe
