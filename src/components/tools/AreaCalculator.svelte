@@ -1,7 +1,5 @@
 <script>
-    import { onMount } from "svelte";
-
-    // Shape type and dimensions
+    // Logic unchanged, but script block moved to top for consistency
     let selectedShape = "rectangle";
     let length = "";
     let width = "";
@@ -11,45 +9,31 @@
     let angle = "";
     let area = 0;
     let selectedUnit = "inches";
-
-    // Parsed numeric values
     $: numLength = parseFloat(length) || 0;
     $: numWidth = parseFloat(width) || 0;
     $: numBase = parseFloat(base) || 0;
     $: numHeight = parseFloat(height) || 0;
     $: numRadius = parseFloat(radius) || 0;
     $: numAngle = parseFloat(angle) || 0;
-
-    // Calculate area based on selected shape
     $: {
         if (selectedShape === "rectangle") {
             area = numLength * numWidth;
         } else if (selectedShape === "triangle") {
             area = (numBase * numHeight) / 2;
         } else if (selectedShape === "arc") {
-            // Area of an arc = (θ/360) * π * r²
-            // where θ is the angle in degrees
             area = (numAngle / 360) * Math.PI * numRadius * numRadius;
         }
-
-        // Round to 2 decimal places
         area = Math.round(area * 100) / 100;
     }
-
-    // Check if all required values are provided
     $: hasAllRequiredValues =
         selectedShape === "rectangle"
             ? numLength > 0 && numWidth > 0
             : selectedShape === "triangle"
               ? numBase > 0 && numHeight > 0
               : numRadius > 0 && numAngle > 0 && numAngle <= 360;
-
-    // Format number to 2 decimal places
     const formatNumber = (num) => {
         return isNaN(num) || !isFinite(num) ? "0.00" : num.toFixed(2);
     };
-
-    // Reset dimensions when shape changes
     function handleShapeChange() {
         length = "";
         width = "";
@@ -60,201 +44,177 @@
     }
 </script>
 
-<div class="tool-container bg-white h-full">
+<div class="max-w-4xl mx-auto p-4">
     <!-- Header Section -->
-    <header class="tool-header mb-8 pb-6 border-b border-gray-200">
-        <h1 class="text-3xl font-bold text-gray-900">Area Calculator</h1>
-        <p class="mt-2 text-gray-600">
-            Calculate the area of different shapes.
-        </p>
-    </header>
+    <div class="mb-8 text-center">
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Area Calculator</h1>
+        <p class="text-gray-600">Calculate the area of different shapes.</p>
+    </div>
 
-    <!-- Tool Content -->
-    <div class="tool-content space-y-4">
-        <fieldset>
-            <legend class="block text-gray-700 font-medium mb-2"
-                >Select Shape</legend
-            >
-            <div class="flex gap-4 flex-wrap">
-                <label class="flex items-center cursor-pointer">
-                    <input
-                        type="radio"
-                        bind:group={selectedShape}
-                        value="rectangle"
+    <!-- Main Content -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <!-- Input Section -->
+        <div class="space-y-4 mb-6">
+            <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">
+                Input Parameters
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Shape Selector -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                        >Select Shape</label
+                    >
+                    <select
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        bind:value={selectedShape}
                         on:change={handleShapeChange}
-                        class="form-radio h-5 w-5 text-blue-600"
-                    />
-                    <span class="ml-2 text-gray-700">Rectangle</span>
-                </label>
-
-                <label class="flex items-center cursor-pointer">
-                    <input
-                        type="radio"
-                        bind:group={selectedShape}
-                        value="triangle"
-                        on:change={handleShapeChange}
-                        class="form-radio h-5 w-5 text-blue-600"
-                    />
-                    <span class="ml-2 text-gray-700">Triangle</span>
-                </label>
-
-                <label class="flex items-center cursor-pointer">
-                    <input
-                        type="radio"
-                        bind:group={selectedShape}
-                        value="arc"
-                        on:change={handleShapeChange}
-                        class="form-radio h-5 w-5 text-blue-600"
-                    />
-                    <span class="ml-2 text-gray-700">Arc</span>
-                </label>
-            </div>
-        </fieldset>
-
-        {#if selectedShape === "rectangle"}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div class="space-y-2">
-                    <label
-                        for="length"
-                        class="block text-gray-700 font-medium mb-2"
                     >
-                        Length
-                    </label>
-                    <input
-                        type="number"
-                        id="length"
-                        bind:value={length}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter length"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                        <option value="rectangle">Rectangle</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="arc">Arc</option>
+                    </select>
                 </div>
-
-                <div class="space-y-2">
-                    <label
-                        for="width"
-                        class="block text-gray-700 font-medium mb-2"
+                <!-- Unit Selector -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                        >Unit of Measurement</label
                     >
-                        Width
-                    </label>
-                    <input
-                        type="number"
-                        id="width"
-                        bind:value={width}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter width"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
-            </div>
-        {:else if selectedShape === "triangle"}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-2">
-                    <label
-                        for="base"
-                        class="block text-gray-700 font-medium mb-2"
+                    <select
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        bind:value={selectedUnit}
                     >
-                        Base
-                    </label>
-                    <input
-                        type="number"
-                        id="base"
-                        bind:value={base}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter base"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                        <option value="inches">Inches</option>
+                        <option value="feet">Feet</option>
+                        <option value="yards">Yards</option>
+                    </select>
                 </div>
-
-                <div class="space-y-2">
-                    <label
-                        for="height"
-                        class="block text-gray-700 font-medium mb-2"
-                    >
-                        Height
-                    </label>
-                    <input
-                        type="number"
-                        id="height"
-                        bind:value={height}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter height"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
-            </div>
-        {:else if selectedShape === "arc"}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-2">
-                    <label
-                        for="radius"
-                        class="block text-gray-700 font-medium mb-2"
-                    >
-                        Radius
-                    </label>
-                    <input
-                        type="number"
-                        id="radius"
-                        bind:value={radius}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter radius"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
-
-                <div class="space-y-2">
-                    <label
-                        for="angle"
-                        class="block text-gray-700 font-medium mb-2"
-                    >
-                        Angle (degrees)
-                    </label>
-                    <input
-                        type="number"
-                        id="angle"
-                        bind:value={angle}
-                        min="0"
-                        max="360"
-                        step="0.1"
-                        placeholder="Enter angle (0-360)"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
-            </div>
-        {/if}
-
-        <div class="mb-6">
-            <label for="unit" class="block text-gray-700 font-medium mb-2">
-                Unit of Measurement
-            </label>
-            <select
-                id="unit"
-                bind:value={selectedUnit}
-                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white"
-            >
-                <option value="inches">Inches</option>
-                <option value="feet">Feet</option>
-                <option value="yards">Yards</option>
-            </select>
-        </div>
-
-        <div class="bg-gray-50 p-4 rounded-md">
-            <h3 class="text-lg font-semibold text-gray-800 mb-3">Result</h3>
-
-            {#if hasAllRequiredValues}
-                <div class="grid grid-cols-1 gap-2">
+                <!-- Rectangle Inputs -->
+                {#if selectedShape === "rectangle"}
                     <div>
-                        <p class="text-gray-700">
-                            The area of the {selectedShape} is:
-                        </p>
-                        <p class="text-xl font-bold text-blue-600">
-                            {formatNumber(area)} square {selectedUnit}
-                        </p>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                            >Length</label
+                        >
+                        <input
+                            type="number"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter length"
+                            min="0"
+                            step="0.01"
+                            bind:value={length}
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                            >Width</label
+                        >
+                        <input
+                            type="number"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter width"
+                            min="0"
+                            step="0.01"
+                            bind:value={width}
+                        />
+                    </div>
+                {/if}
+                <!-- Triangle Inputs -->
+                {#if selectedShape === "triangle"}
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                            >Base</label
+                        >
+                        <input
+                            type="number"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter base"
+                            min="0"
+                            step="0.01"
+                            bind:value={base}
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                            >Height</label
+                        >
+                        <input
+                            type="number"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter height"
+                            min="0"
+                            step="0.01"
+                            bind:value={height}
+                        />
+                    </div>
+                {/if}
+                <!-- Arc Inputs -->
+                {#if selectedShape === "arc"}
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                            >Radius</label
+                        >
+                        <input
+                            type="number"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter radius"
+                            min="0"
+                            step="0.01"
+                            bind:value={radius}
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-1"
+                            >Angle (degrees)</label
+                        >
+                        <input
+                            type="number"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter angle (0-360)"
+                            min="0"
+                            max="360"
+                            step="0.1"
+                            bind:value={angle}
+                        />
+                    </div>
+                {/if}
+            </div>
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3 pt-2">
+                <button
+                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    disabled={!hasAllRequiredValues}
+                >
+                    Calculate
+                </button>
+                <button
+                    class="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    type="button"
+                    on:click={handleShapeChange}
+                >
+                    Reset
+                </button>
+            </div>
+        </div>
+        <!-- Results Section -->
+        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-700 mb-3">Results</h2>
+            {#if hasAllRequiredValues}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-md border border-gray-200">
+                        <div class="text-sm font-medium text-gray-500">
+                            Area
+                        </div>
+                        <div class="text-2xl font-bold text-gray-800">
+                            {formatNumber(area)}
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            square {selectedUnit}
+                        </div>
                     </div>
                 </div>
             {:else}
@@ -275,6 +235,46 @@
                     </p>
                 </div>
             {/if}
+        </div>
+    </div>
+    <!-- Additional Information Section -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-700 mb-3">How it Works</h2>
+        <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+                Enter the required parameters for your chosen shape and unit.
+                The calculator will compute the area instantly as you fill in
+                the fields.
+            </p>
+            <ul class="list-disc pl-5 space-y-1 mb-4">
+                <li>Rectangle: Area = Length × Width</li>
+                <li>Triangle: Area = (Base × Height) / 2</li>
+                <li>Arc: Area = (Angle / 360) × π × Radius²</li>
+            </ul>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 my-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg
+                            class="h-5 w-5 text-blue-400"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h2a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-blue-700">
+                            The calculator updates automatically as you change
+                            values. Reset to clear all fields.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

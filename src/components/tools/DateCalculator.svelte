@@ -1,20 +1,12 @@
 <script lang="ts">
-  // Input mode toggle
   let calculationMode: "add" | "difference" = "add";
-
-  // Input values
   let startDate = new Date().toISOString().split("T")[0];
   let endDate = new Date().toISOString().split("T")[0];
   let years = 0;
   let months = 0;
   let days = 0;
-
-  // Calculate result for add/subtract mode
   $: calculatedDate = calculateNewDate(startDate, years, months, days);
-
-  // Calculate difference for difference mode
   $: dateDifference = calculateDateDifference(startDate, endDate);
-
   function calculateNewDate(
     baseDate: string,
     years: number,
@@ -27,7 +19,6 @@
     date.setDate(date.getDate() + days);
     return date;
   }
-
   function calculateDateDifference(start: string, end: string) {
     const date1 = new Date(start);
     const date2 = new Date(end);
@@ -35,7 +26,6 @@
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   }
-
   function formatDate(date: Date): string {
     return date.toLocaleDateString("en-US", {
       weekday: "long",
@@ -46,151 +36,181 @@
   }
 </script>
 
-<div class="tool-container">
+<div class="max-w-4xl mx-auto p-4">
   <!-- Header Section -->
-  <header class="tool-header">
-    <h1 class="text-3xl font-bold text-gray-900">Date Calculator</h1>
-    <p class="mt-2 text-gray-600">Add, subtract, or compare dates easily.</p>
-  </header>
-  <!-- Tool Content -->
-  <div class="tool-content">
-    <div class="mb-4">
-      <fieldset class="flex flex-wrap gap-4 mb-4">
-        <legend class="sr-only">Calculation Mode</legend>
-        <label class="form-label">
-          <input type="radio" bind:group={calculationMode} value="add" />
-          <span>Add/Subtract Time</span>
-        </label>
-        <label class="form-label">
-          <input type="radio" bind:group={calculationMode} value="difference" />
-          <span>Calculate Difference</span>
-        </label>
-      </fieldset>
-    </div>
+  <div class="mb-8 text-center">
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">Date Calculator</h1>
+    <p class="text-gray-600">Add, subtract, or compare dates easily.</p>
+  </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <div>
-        <label for="startDate" class="form-label">
-          {calculationMode === "add" ? "Start Date" : "First Date"}
-        </label>
-        <input
-          id="startDate"
-          type="date"
-          bind:value={startDate}
-          class="form-input"
-        />
-      </div>
-
-      {#if calculationMode === "difference"}
+  <!-- Main Content -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <!-- Input Section -->
+    <div class="space-y-4 mb-6">
+      <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">
+        Input Parameters
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Calculation Mode Selector -->
         <div>
-          <label for="endDate" class="form-label"> Second Date </label>
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Calculation Mode</label
+          >
+          <select
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            bind:value={calculationMode}
+          >
+            <option value="add">Add/Subtract Time</option>
+            <option value="difference">Calculate Difference</option>
+          </select>
+        </div>
+        <!-- Start/First Date -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >{calculationMode === "add" ? "Start Date" : "First Date"}</label
+          >
           <input
-            id="endDate"
             type="date"
-            bind:value={endDate}
-            class="form-input"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            bind:value={startDate}
           />
         </div>
-      {:else}
-        <div class="grid grid-cols-3 gap-4">
+        <!-- Second Date or Years/Months/Days -->
+        {#if calculationMode === "difference"}
           <div>
-            <label for="years" class="form-label">Years</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Second Date</label
+            >
             <input
-              id="years"
-              type="number"
-              bind:value={years}
-              class="form-input"
+              type="date"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              bind:value={endDate}
             />
           </div>
-          <div>
-            <label for="months" class="form-label">Months</label>
-            <input
-              id="months"
-              type="number"
-              bind:value={months}
-              class="form-input"
-            />
+        {:else}
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Years</label
+              >
+              <input
+                type="number"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                bind:value={years}
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Months</label
+              >
+              <input
+                type="number"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                bind:value={months}
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Days</label
+              >
+              <input
+                type="number"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                bind:value={days}
+              />
+            </div>
           </div>
-          <div>
-            <label for="days" class="form-label">Days</label>
-            <input
-              id="days"
-              type="number"
-              bind:value={days}
-              class="form-input"
-            />
+        {/if}
+      </div>
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap gap-3 pt-2">
+        <button
+          class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          disabled={calculationMode === "add" ? false : false}
+        >
+          Calculate
+        </button>
+        <button
+          class="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          type="button"
+          on:click={() => {
+            startDate = new Date().toISOString().split("T")[0];
+            endDate = new Date().toISOString().split("T")[0];
+            years = 0;
+            months = 0;
+            days = 0;
+          }}
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+    <!-- Results Section -->
+    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-700 mb-3">Results</h2>
+      {#if calculationMode === "add"}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-md border border-gray-200">
+            <div class="text-sm font-medium text-gray-500">Calculated Date</div>
+            <div class="text-2xl font-bold text-gray-800">
+              {formatDate(calculatedDate)}
+            </div>
+            <div class="text-xs text-gray-500 mt-1">Result</div>
           </div>
         </div>
-      {/if}
-    </div>
-
-    <div class="results-section">
-      <h3 class="text-lg font-semibold text-gray-700 mb-3">Result</h3>
-      {#if calculationMode === "add"}
-        <p class="feedback feedback-success">
-          {formatDate(calculatedDate)}
-        </p>
       {:else}
-        <p class="feedback feedback-success">
-          {dateDifference} days difference
-        </p>
-      {/if}
-    </div>
-
-    <div class="feedback feedback-info">
-      <h4 class="font-semibold mb-2">Instructions:</h4>
-      {#if calculationMode === "add"}
-        <p>Enter a start date and the amount of time to add or subtract.</p>
-        <p>Use negative numbers to subtract time.</p>
-      {:else}
-        <p>Enter two dates to calculate the number of days between them.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-md border border-gray-200">
+            <div class="text-sm font-medium text-gray-500">Date Difference</div>
+            <div class="text-2xl font-bold text-gray-800">{dateDifference}</div>
+            <div class="text-xs text-gray-500 mt-1">days</div>
+          </div>
+        </div>
       {/if}
     </div>
   </div>
+  <!-- Additional Information Section -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-lg font-semibold text-gray-700 mb-3">Instructions</h2>
+    <div class="prose max-w-none text-gray-600">
+      <p class="mb-4">
+        Use the calculator to add/subtract time from a date or calculate the
+        difference between two dates.
+      </p>
+      <ul class="list-disc pl-5 space-y-1 mb-4">
+        <li>
+          Add/Subtract: Enter a start date and the amount of time to add or
+          subtract. Use negative numbers to subtract.
+        </li>
+        <li>
+          Difference: Enter two dates to calculate the number of days between
+          them.
+        </li>
+      </ul>
+      <div class="bg-blue-50 border-l-4 border-blue-400 p-4 my-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-blue-400"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h2a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-blue-700">
+              The calculator updates automatically as you change values. Reset
+              to clear all fields.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<style lang="postcss">
-  :global(html) {
-    scroll-behavior: smooth;
-  }
-
-  .tool-container {
-    @apply bg-white h-full;
-  }
-
-  .tool-header {
-    @apply mb-8 pb-6 border-b border-gray-200;
-  }
-
-  .tool-content {
-    @apply space-y-6;
-  }
-
-  .form-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
-  }
-
-  .form-input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-  }
-
-  .form-label span {
-    @apply ml-2 text-gray-700;
-  }
-
-  .results-section {
-    @apply bg-gray-50 p-4 rounded-md mb-6;
-  }
-
-  .feedback {
-    @apply p-3 rounded-md text-sm mb-4;
-  }
-
-  .feedback-info {
-    @apply bg-blue-50 text-blue-800;
-  }
-
-  .feedback-success {
-    @apply bg-green-50 text-green-800;
-  }
-</style>
