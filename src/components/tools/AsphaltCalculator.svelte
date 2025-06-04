@@ -40,177 +40,226 @@
   };
 </script>
 
-<div class="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto my-4">
-  <h2 class="text-2xl font-bold text-gray-800 mb-6">Asphalt Calculator</h2>
+<div class="tool-container">
+  <!-- Header Section -->
+  <header class="tool-header">
+    <h1 class="text-3xl font-bold text-gray-900">Asphalt Calculator</h1>
+    <p class="mt-2 text-gray-600">
+      Calculate the amount of asphalt needed for a given area.
+    </p>
+  </header>
 
-  <div class="mb-4">
-    <div class="flex items-center space-x-4">
-      <label class="inline-flex items-center">
-        <input
-          type="radio"
-          bind:group={useDirectArea}
-          value={false}
-          class="form-radio h-4 w-4 text-indigo-600"
-        />
-        <span class="ml-2 text-sm text-gray-700">Use Width & Length</span>
-      </label>
-      <label class="inline-flex items-center">
-        <input
-          type="radio"
-          bind:group={useDirectArea}
-          value={true}
-          class="form-radio h-4 w-4 text-indigo-600"
-        />
-        <span class="ml-2 text-sm text-gray-700">Use Area</span>
-      </label>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-    {#if !useDirectArea}
-      <div class="space-y-2">
-        <label for="width" class="block text-sm font-medium text-gray-700"
-          >Width (feet)</label
-        >
-        <input
-          id="width"
-          type="number"
-          bind:value={width}
-          min="0"
-          step="0.1"
-          placeholder="Enter width"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-        />
-      </div>
-
-      <div class="space-y-2">
-        <label for="height" class="block text-sm font-medium text-gray-700"
-          >Length (feet)</label
-        >
-        <input
-          id="height"
-          type="number"
-          bind:value={height}
-          min="0"
-          step="0.1"
-          placeholder="Enter length"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-        />
-      </div>
-    {:else}
-      <div class="space-y-2 md:col-span-2">
-        <label for="directArea" class="block text-sm font-medium text-gray-700"
-          >Area</label
-        >
-        <div class="flex space-x-2">
+  <!-- Tool Content -->
+  <div class="tool-content">
+    <fieldset class="form-group">
+      <legend class="form-label">Input Mode</legend>
+      <div class="flex gap-4 flex-wrap mt-1">
+        <label class="flex items-center cursor-pointer">
           <input
-            id="directArea"
+            type="radio"
+            bind:group={useDirectArea}
+            value={false}
+            class="form-radio"
+          />
+          <span class="ml-2 text-gray-700">Use Width & Length</span>
+        </label>
+        <label class="flex items-center cursor-pointer">
+          <input
+            type="radio"
+            bind:group={useDirectArea}
+            value={true}
+            class="form-radio"
+          />
+          <span class="ml-2 text-gray-700">Use Area</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {#if !useDirectArea}
+        <div class="form-group">
+          <label for="width" class="form-label">Width (feet)</label>
+          <input
+            id="width"
             type="number"
-            bind:value={directArea}
+            bind:value={width}
             min="0"
             step="0.1"
-            placeholder="Enter area"
-            class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Enter width"
+            class="form-input"
           />
-          <select
-            bind:value={areaUnit}
-            class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 bg-white"
-          >
-            <option value="ft²">Square Feet (ft²)</option>
-            <option value="yd²">Square Yards (yd²)</option>
-          </select>
         </div>
-      </div>
-    {/if}
 
-    <div class="space-y-2">
-      <label for="thickness" class="block text-sm font-medium text-gray-700"
-        >Thickness (inches)</label
-      >
-      <input
-        id="thickness"
-        type="number"
-        bind:value={thickness}
-        min="0"
-        step="0.1"
-        placeholder="Enter thickness"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-      />
+        <div class="form-group">
+          <label for="height" class="form-label">Length (feet)</label>
+          <input
+            id="height"
+            type="number"
+            bind:value={height}
+            min="0"
+            step="0.1"
+            placeholder="Enter length"
+            class="form-input"
+          />
+        </div>
+      {:else}
+        <div class="form-group md:col-span-2">
+          <label for="directArea" class="form-label">Area</label>
+          <div class="flex space-x-2">
+            <input
+              id="directArea"
+              type="number"
+              bind:value={directArea}
+              min="0"
+              step="0.1"
+              placeholder="Enter area"
+              class="form-input flex-1"
+            />
+            <select bind:value={areaUnit} class="form-input">
+              <option value="ft²">Square Feet (ft²)</option>
+              <option value="yd²">Square Yards (yd²)</option>
+            </select>
+          </div>
+        </div>
+      {/if}
+
+      <div class="form-group">
+        <label for="thickness" class="form-label">Thickness (inches)</label>
+        <input
+          id="thickness"
+          type="number"
+          bind:value={thickness}
+          min="0"
+          step="0.1"
+          placeholder="Enter thickness"
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="unitWeight" class="form-label"
+          >Unit Weight (lbs/yd²/in)</label
+        >
+        <input
+          id="unitWeight"
+          type="number"
+          bind:value={unitWeight}
+          min="0"
+          step="0.1"
+          placeholder="Default: 113"
+          class="form-input"
+        />
+      </div>
     </div>
 
-    <div class="space-y-2">
-      <label for="unitWeight" class="block text-sm font-medium text-gray-700"
-        >Unit Weight (lbs/yd²/in)</label
-      >
-      <input
-        id="unitWeight"
-        type="number"
-        bind:value={unitWeight}
-        min="0"
-        step="0.1"
-        placeholder="Default: 113"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-      />
+    <!-- Results Section -->
+    <div class="results-section">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Results</h2>
+      <div class="results-content">
+        {#if hasAllRequiredValues}
+          <div class="feedback success">
+            <p>
+              Area in Square Feet: <span class="font-bold"
+                >{formatNumber(areaInSquareFeet)} ft²</span
+              >
+            </p>
+            <p>
+              Area in Square Yards: <span class="font-bold"
+                >{formatNumber(areaInSquareYards)} yd²</span
+              >
+            </p>
+            <p>
+              Weight in Pounds: <span class="font-bold"
+                >{formatNumber(weightInPounds)} lbs</span
+              >
+            </p>
+            <p>
+              Asphalt Required: <span class="font-bold text-lg text-indigo-600"
+                >{formatNumber(weightInTons)} tons</span
+              >
+            </p>
+          </div>
+        {:else}
+          <div class="feedback error">
+            <p>
+              {#if useDirectArea}
+                Please enter valid area and thickness values to see calculation
+                results.
+              {:else}
+                Please enter valid width, length, and thickness values to see
+                calculation results.
+              {/if}
+            </p>
+          </div>
+        {/if}
+      </div>
     </div>
-  </div>
 
-  <div class="bg-gray-50 p-4 rounded-md mb-6">
-    <h3 class="text-lg font-semibold text-gray-700 mb-3">
-      Calculation Results
-    </h3>
-
-    {#if hasAllRequiredValues}
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <p class="text-sm text-gray-600">Area in Square Feet:</p>
-          <p class="text-lg font-medium">
-            {formatNumber(areaInSquareFeet)} ft²
-          </p>
-        </div>
-
-        <div>
-          <p class="text-sm text-gray-600">Area in Square Yards:</p>
-          <p class="text-lg font-medium">
-            {formatNumber(areaInSquareYards)} yd²
-          </p>
-        </div>
-
-        <div>
-          <p class="text-sm text-gray-600">Weight in Pounds:</p>
-          <p class="text-lg font-medium">{formatNumber(weightInPounds)} lbs</p>
-        </div>
-
-        <div>
-          <p class="text-sm text-gray-600 font-medium">Asphalt Required:</p>
-          <p class="text-xl font-bold text-indigo-600">
-            {formatNumber(weightInTons)} tons
-          </p>
-        </div>
-      </div>
-    {:else}
-      <div
-        class="p-3 bg-yellow-50 text-yellow-700 rounded border border-yellow-200"
-      >
-        <p>
-          {#if useDirectArea}
-            Please enter valid area and thickness values to see calculation
-            results.
-          {:else}
-            Please enter valid width, length, and thickness values to see
-            calculation results.
-          {/if}
-        </p>
-      </div>
-    {/if}
-  </div>
-
-  <div class="bg-blue-50 p-4 rounded-md text-sm text-blue-800">
-    <h4 class="font-semibold mb-2">Formula Used:</h4>
-    {#if !useDirectArea}
-      <p>Area (ft²) = Width (ft) × Length (ft)</p>
-    {/if}
-    <p>Area (yd²) = Area (ft²) ÷ 9</p>
-    <p>Weight (lbs) = Thickness (in) × Area (yd²) × Unit Weight (lbs/yd²/in)</p>
-    <p>Weight (tons) = Weight (lbs) × 0.0005</p>
+    <div class="bg-blue-50 p-4 rounded-md text-sm text-blue-800 mt-6">
+      <h4 class="font-semibold mb-2">Formula Used:</h4>
+      {#if !useDirectArea}
+        <p>Area (ft²) = Width (ft) × Length (ft)</p>
+      {/if}
+      <p>Area (yd²) = Area (ft²) ÷ 9</p>
+      <p>
+        Weight (lbs) = Thickness (in) × Area (yd²) × Unit Weight (lbs/yd²/in)
+      </p>
+      <p>Weight (tons) = Weight (lbs) × 0.0005</p>
+    </div>
   </div>
 </div>
+
+<style>
+  .tool-container {
+    @apply bg-white h-full;
+  }
+
+  .tool-header {
+    @apply mb-8 pb-6 border-b border-gray-200;
+  }
+
+  .tool-content {
+    @apply space-y-6;
+  }
+
+  /* Form Elements */
+  .form-group {
+    @apply mb-6;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+
+  .form-input {
+    @apply mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+               disabled:bg-gray-50 disabled:text-gray-500;
+  }
+
+  .form-radio {
+    @apply h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500;
+  }
+
+  /* Feedback Messages */
+  .feedback {
+    @apply p-4 rounded-md text-sm;
+  }
+
+  .error {
+    @apply bg-red-50 text-red-700 border-l-4 border-red-500;
+  }
+
+  .success {
+    @apply bg-green-50 text-green-700 border-l-4 border-green-500;
+  }
+
+  /* Results Section */
+  .results-section {
+    @apply mt-8 pt-6 border-t border-gray-200;
+  }
+
+  .results-content {
+    /* Add any specific styling for the results content area if needed */
+  }
+</style>

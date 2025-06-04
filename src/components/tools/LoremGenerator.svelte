@@ -59,13 +59,13 @@
     });
 </script>
 
-<div class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
-    <h2 class="text-2xl font-bold text-gray-800 mb-4">Lorem Ipsum Generator</h2>
+<div class="bg-white rounded-lg shadow-sm p-6 h-full">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Lorem Ipsum Generator</h2>
 
     <div class="mb-6">
         <label
             for="paragraphCount"
-            class="block text-sm font-medium text-gray-700 mb-2"
+            class="form-label"
         >
             Number of Paragraphs
         </label>
@@ -85,14 +85,14 @@
     <div class="flex space-x-4 mb-6">
         <button
             on:click={generateLorem}
-            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
+            class="btn-primary"
         >
             Generate
         </button>
 
         <button
             on:click={copyToClipboard}
-            class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition-colors flex items-center"
+            class="btn-secondary flex items-center"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -113,12 +113,12 @@
     </div>
 
     {#if copySuccess}
-        <div class="mb-4 text-sm text-green-600 font-medium">
+        <div class="feedback feedback-success">
             Text copied to clipboard!
         </div>
     {/if}
 
-    <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
+    <div class="results-section">
         <div class="max-h-96 overflow-y-auto">
             {#each generatedText.split("\n\n") as paragraph}
                 <p class="mb-4 text-gray-700 last:mb-0">{paragraph}</p>
@@ -126,3 +126,81 @@
         </div>
     </div>
 </div>
+
+<style lang="postcss">
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+
+  .form-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  }
+
+  .form-select {
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white;
+  }
+
+  .form-radio {
+    @apply flex items-center cursor-pointer;
+  }
+
+  .form-radio input[type="radio"] {
+    @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300;
+  }
+
+  .form-radio span {
+    @apply ml-2 text-gray-700;
+  }
+
+  .form-checkbox {
+    @apply flex items-center cursor-pointer;
+  }
+
+  .form-checkbox input[type="checkbox"] {
+    @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
+  }
+
+  .form-checkbox span {
+    @apply ml-2 text-gray-700;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition-colors;
+  }
+
+  .results-section {
+    @apply bg-gray-50 p-4 rounded-md mb-6;
+  }
+
+  .results-content {
+    @apply text-lg font-medium text-gray-900;
+  }
+
+  .feedback {
+    @apply p-3 rounded-md text-sm mb-4;
+  }
+
+  .feedback-info {
+    @apply bg-blue-50 text-blue-800;
+  }
+
+  .feedback-success {
+    @apply bg-green-50 text-green-800;
+  }
+
+  .feedback-warning {
+    @apply bg-yellow-50 text-yellow-800;
+  }
+
+  .feedback-error {
+    @apply bg-red-50 text-red-800;
+  }
+</style>

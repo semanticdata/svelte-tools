@@ -200,34 +200,26 @@
     }
 </script>
 
-<div class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md my-4">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Text Comparer</h2>
+<div class="bg-white rounded-lg shadow-sm p-6 h-full">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Text Comparer</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-            <label
-                for="text1"
-                class="block text-sm font-medium text-gray-700 mb-2"
-                >Original Text</label
-            >
+            <label for="text1" class="form-label">Original Text</label>
             <textarea
                 id="text1"
                 bind:value={text1}
-                class="w-full h-64 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                class="form-input h-64"
                 placeholder="Enter the original text here..."
             ></textarea>
         </div>
 
         <div>
-            <label
-                for="text2"
-                class="block text-sm font-medium text-gray-700 mb-2"
-                >Modified Text</label
-            >
+            <label for="text2" class="form-label">Modified Text</label>
             <textarea
                 id="text2"
                 bind:value={text2}
-                class="w-full h-64 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                class="form-input h-64"
                 placeholder="Enter the modified text here..."
             ></textarea>
         </div>
@@ -236,22 +228,17 @@
     <div class="flex justify-center space-x-4 mb-6">
         <button
             on:click={computeDiff}
-            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+            class="btn-primary"
             disabled={isProcessing || !text1.trim() || !text2.trim()}
         >
             {isProcessing ? "Processing..." : "Compare Texts"}
         </button>
 
-        <button
-            on:click={clearAll}
-            class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
-        >
-            Clear All
-        </button>
+        <button on:click={clearAll} class="btn-secondary"> Clear All </button>
 
         <button
             on:click={copyDiffResult}
-            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
+            class="btn-primary"
             disabled={diffResult.length === 0}
         >
             Copy Result
@@ -259,91 +246,171 @@
     </div>
 
     {#if diffResult.length > 0}
-        {#if textsAreIdentical}
-            <div
-                class="mb-4 p-4 bg-blue-100 text-blue-800 rounded-md flex items-center"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6 mr-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+        <div class="results-section">
+            {#if textsAreIdentical}
+                <div class="feedback feedback-info flex items-center">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                    </svg>
+                    <span class="font-medium"
+                        >The texts are identical! No differences found.</span
+                    >
+                </div>
+            {:else}
+                <div
+                    class="border border-gray-300 rounded-md bg-gray-50 overflow-x-auto"
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                </svg>
-                <span class="font-medium"
-                    >The texts are identical! No differences found.</span
-                >
-            </div>
-        {:else}
-            <div
-                class="border border-gray-300 rounded-md bg-gray-50 overflow-x-auto"
-            >
-                <div class="grid grid-cols-2 divide-x divide-gray-300">
-                    <!-- Headers -->
-                    <div class="p-2 font-medium text-gray-700 bg-gray-200">
-                        Original Text
-                    </div>
-                    <div class="p-2 font-medium text-gray-700 bg-gray-200">
-                        Modified Text
-                    </div>
+                    <div class="grid grid-cols-2 divide-x divide-gray-300">
+                        <!-- Headers -->
+                        <div class="p-2 font-medium text-gray-700 bg-gray-200">
+                            Original Text
+                        </div>
+                        <div class="p-2 font-medium text-gray-700 bg-gray-200">
+                            Modified Text
+                        </div>
 
-                    <!-- Content -->
-                    <div class="text-sm font-mono whitespace-pre-wrap">
-                        {#each leftLines as line}
-                            <div class="flex border-b border-gray-200">
-                                <div
-                                    class="w-8 flex-shrink-0 text-right pr-2 text-gray-500 border-r border-gray-300"
-                                >
-                                    {line.lineNum || " "}
+                        <!-- Content -->
+                        <div class="text-sm font-mono whitespace-pre-wrap">
+                            {#each leftLines as line}
+                                <div class="flex border-b border-gray-200">
+                                    <div
+                                        class="w-8 flex-shrink-0 text-right pr-2 text-gray-500 border-r border-gray-300"
+                                    >
+                                        {line.lineNum || " "}
+                                    </div>
+                                    <div
+                                        class="p-1 w-full {line.type ===
+                                        'unchanged'
+                                            ? 'bg-white'
+                                            : line.type === 'removed'
+                                              ? 'bg-red-100' // Use Tailwind red-100 for removed lines
+                                              : 'bg-gray-100'}"
+                                    >
+                                        {line.text}
+                                    </div>
                                 </div>
-                                <div
-                                    class="p-1 w-full {line.type === 'unchanged'
-                                        ? 'bg-white'
-                                        : line.type === 'removed'
-                                          ? 'bg-red-100'
-                                          : 'bg-gray-100'}"
-                                >
-                                    {line.text}
-                                </div>
-                            </div>
-                        {/each}
-                    </div>
+                            {/each}
+                        </div>
 
-                    <div class="text-sm font-mono whitespace-pre-wrap">
-                        {#each rightLines as line}
-                            <div class="flex border-b border-gray-200">
-                                <div
-                                    class="w-8 flex-shrink-0 text-right pr-2 text-gray-500 border-r border-gray-300"
-                                >
-                                    {line.lineNum || " "}
+                        <div class="text-sm font-mono whitespace-pre-wrap">
+                            {#each rightLines as line}
+                                <div class="flex border-b border-gray-200">
+                                    <div
+                                        class="w-8 flex-shrink-0 text-right pr-2 text-gray-500 border-r border-gray-300"
+                                    >
+                                        {line.lineNum || " "}
+                                    </div>
+                                    <div
+                                        class="p-1 w-full {line.type ===
+                                        'unchanged'
+                                            ? 'bg-white'
+                                            : line.type === 'added'
+                                              ? 'bg-green-100' // Use Tailwind green-100 for added lines
+                                              : 'bg-gray-100'}"
+                                    >
+                                        {line.text}
+                                    </div>
                                 </div>
-                                <div
-                                    class="p-1 w-full {line.type === 'unchanged'
-                                        ? 'bg-white'
-                                        : line.type === 'added'
-                                          ? 'bg-green-100'
-                                          : 'bg-gray-100'}"
-                                >
-                                    {line.text}
-                                </div>
-                            </div>
-                        {/each}
+                            {/each}
+                        </div>
                     </div>
                 </div>
+            {/if}
+        </div>
+
+        {#if diffResult.length === 0 && text1.trim() && text2.trim()}
+            <div class="feedback feedback-info text-center">
+                Click "Compare Texts" to see the differences.
             </div>
         {/if}
     {/if}
-
-    {#if diffResult.length === 0 && text1.trim() && text2.trim()}
-        <div class="p-4 bg-gray-100 text-gray-600 rounded-md text-center">
-            Click "Compare Texts" to see the differences.
-        </div>
-    {/if}
 </div>
+
+<style lang="postcss">
+    :global(html) {
+        scroll-behavior: smooth;
+    }
+
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1;
+    }
+
+    .form-input {
+        @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    }
+
+    .form-select {
+        @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white;
+    }
+
+    .form-radio {
+        @apply flex items-center cursor-pointer;
+    }
+
+    .form-radio input[type="radio"] {
+        @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300;
+    }
+
+    .form-radio span {
+        @apply ml-2 text-gray-700;
+    }
+
+    .form-checkbox {
+        @apply flex items-center cursor-pointer;
+    }
+
+    .form-checkbox input[type="checkbox"] {
+        @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
+    }
+
+    .form-checkbox span {
+        @apply ml-2 text-gray-700;
+    }
+
+    .btn-primary {
+        @apply px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors;
+    }
+
+    .btn-secondary {
+        @apply px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition-colors;
+    }
+
+    .results-section {
+        @apply bg-gray-50 p-4 rounded-md mb-6;
+    }
+
+    .results-content {
+        @apply bg-white p-2 rounded border border-gray-200;
+    }
+
+    .feedback {
+        @apply p-3 rounded-md text-sm mb-4;
+    }
+
+    .feedback-info {
+        @apply bg-blue-50 text-blue-800;
+    }
+
+    .feedback-success {
+        @apply bg-green-50 text-green-800;
+    }
+
+    .feedback-warning {
+        @apply bg-yellow-50 text-yellow-800;
+    }
+
+    .feedback-error {
+        @apply bg-red-50 text-red-800;
+    }
+</style>
