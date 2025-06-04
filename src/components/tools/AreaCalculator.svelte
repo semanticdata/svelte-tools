@@ -63,9 +63,9 @@
 <div class="tool-container">
     <!-- Header Section -->
     <header class="tool-header">
-        <h1 class="text-3xl font-bold text-gray-900">Tool Name</h1>
+        <h1 class="text-3xl font-bold text-gray-900">Area Calculator</h1>
         <p class="mt-2 text-gray-600">
-            A brief description of what this tool does and its purpose.
+            Calculate the area of different shapes.
         </p>
     </header>
 
@@ -151,7 +151,7 @@
                 </div>
             </div>
         {:else if selectedShape === "triangle"}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
                     <label
                         for="base"
@@ -189,7 +189,7 @@
                 </div>
             </div>
         {:else if selectedShape === "arc"}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
                     <label
                         for="radius"
@@ -291,70 +291,5 @@
 
     .tool-content {
         @apply space-y-6;
-    }
-
-    /* Form Elements */
-    .form-group {
-        @apply mb-6;
-    }
-
-    .form-label {
-        @apply block text-sm font-medium text-gray-700 mb-1;
-    }
-
-    .form-input {
-        @apply mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
-               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
-               disabled:bg-gray-50 disabled:text-gray-500;
-    }
-
-    .form-hint {
-        @apply mt-1 text-sm text-gray-500;
-    }
-
-    /* Buttons */
-    .action-buttons {
-        @apply flex space-x-3 mt-8 pt-6 border-t border-gray-200;
-    }
-
-    .btn {
-        @apply px-4 py-2 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2;
-    }
-
-    .btn-primary {
-        @apply bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500;
-    }
-
-    .btn-primary:disabled {
-        @apply bg-indigo-300 cursor-not-allowed;
-    }
-
-    .btn-secondary {
-        @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500;
-    }
-
-    .btn-secondary:disabled {
-        @apply text-gray-300 border-gray-200 cursor-not-allowed;
-    }
-
-    /* Feedback Messages */
-    .feedback {
-        @apply p-4 rounded-md text-sm;
-    }
-
-    .error {
-        @apply bg-red-50 text-red-700 border-l-4 border-red-500;
-    }
-
-    .success {
-        @apply bg-green-50 text-green-700 border-l-4 border-green-500;
-    }
-    /* Required field indicator */
-    .required {
-        @apply text-red-500;
-    }
-    /* Results Section */
-    .results-section {
-        @apply mt-8 pt-6 border-t border-gray-200;
     }
 </style>
