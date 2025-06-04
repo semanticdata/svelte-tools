@@ -184,230 +184,218 @@
     }
 </script>
 
-<div class="bg-white rounded-lg shadow-sm p-6 h-full">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">Unit Converter</h2>
+<div class="tool-container">
+    <!-- Header Section -->
+    <header class="tool-header">
+        <h1 class="text-3xl font-bold text-gray-900">Unit Converter</h1>
+        <p class="mt-2 text-gray-600">Convert different units.</p>
+    </header>
 
-    <!-- Conversion Type Selection -->
-    <div class="mb-6">
-        <label for="conversionType" class="form-label">Conversion Type</label>
-        <select
-            id="conversionType"
-            bind:value={selectedType}
-            on:change={handleTypeChange}
-            class="form-select"
-        >
-            {#each conversionTypes as type}
-                <option value={type.id}>{type.name}</option>
-            {/each}
-        </select>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <!-- From Unit -->
-        <div>
-            <label for="fromUnit" class="form-label">From</label>
+    <!-- Tool Content -->
+    <div class="tool-content">
+        <div class="mb-4">
+            <label for="conversionType" class="form-label"
+                >Conversion Type</label
+            >
             <select
-                id="fromUnit"
-                bind:value={fromUnit}
-                on:change={handleUnitChange}
+                id="conversionType"
+                bind:value={selectedType}
+                on:change={handleTypeChange}
                 class="form-select"
             >
-                {#each availableUnits as unit}
-                    <option value={unit.id}>{unit.name}</option>
+                {#each conversionTypes as type}
+                    <option value={type.id}>{type.name}</option>
                 {/each}
             </select>
         </div>
 
-        <!-- To Unit -->
-        <div>
-            <label for="toUnit" class="form-label">To</label>
-            <select
-                id="toUnit"
-                bind:value={toUnit}
-                on:change={handleUnitChange}
-                class="form-select"
-            >
-                {#each availableUnits as unit}
-                    <option value={unit.id}>{unit.name}</option>
-                {/each}
-            </select>
-        </div>
-    </div>
-
-    <!-- Input and Result -->
-    <div class="grid grid-cols-1 md:grid-cols-7 gap-4 items-center mb-6">
-        <div class="md:col-span-3">
-            <label for="inputValue" class="form-label">Value</label>
-            <input
-                type="number"
-                id="inputValue"
-                bind:value={inputValue}
-                on:input={handleUserInput}
-                class="form-input"
-                placeholder="Enter value"
-            />
-        </div>
-
-        <div class="flex justify-center md:col-span-1">
-            <button on:click={swapUnits} class="btn-secondary p-2 rounded-full" title="Swap units" aria-label="Swap units">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6 text-gray-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- From Unit -->
+            <div>
+                <label for="fromUnit" class="form-label">From</label>
+                <select
+                    id="fromUnit"
+                    bind:value={fromUnit}
+                    on:change={handleUnitChange}
+                    class="form-select"
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-                    />
-                </svg>
-            </button>
-        </div>
+                    {#each availableUnits as unit}
+                        <option value={unit.id}>{unit.name}</option>
+                    {/each}
+                </select>
+            </div>
 
-        <div class="md:col-span-3">
-            <label for="resultValue" class="form-label">Result</label>
-            <div
-                id="resultValue"
-                class="form-input bg-gray-50"
-                aria-live="polite"
-            >
-                {#if errorMessage}
-                    <span class="feedback feedback-error">{errorMessage}</span>
-                {:else}
-                    {formatNumber(result)}
-                {/if}
+            <!-- To Unit -->
+            <div>
+                <label for="toUnit" class="form-label">To</label>
+                <select
+                    id="toUnit"
+                    bind:value={toUnit}
+                    on:change={handleUnitChange}
+                    class="form-select"
+                >
+                    {#each availableUnits as unit}
+                        <option value={unit.id}>{unit.name}</option>
+                    {/each}
+                </select>
             </div>
         </div>
-    </div>
 
-    <!-- Conversion Formula -->
-    <div class="feedback feedback-info">
-        <h3 class="text-sm font-medium text-blue-800 mb-1">
-            Conversion Formula
-        </h3>
-        <p class="text-blue-700">
-            1 {availableUnits.find((unit) => unit.id === fromUnit)?.name || ""} =
-            {availableUnits.find((unit) => unit.id === fromUnit)?.factor &&
-            availableUnits.find((unit) => unit.id === toUnit)?.factor
-                ? formatNumber(
-                      availableUnits.find((unit) => unit.id === fromUnit)
-                          .factor /
-                          availableUnits.find((unit) => unit.id === toUnit)
-                              .factor,
-                  )
-                : ""}
-            {availableUnits.find((unit) => unit.id === toUnit)?.name || ""}
-        </p>
-    </div>
+        <!-- Input and Result -->
+        <div class="grid grid-cols-1 md:grid-cols-7 gap-4 items-center mb-6">
+            <div class="md:col-span-3">
+                <label for="inputValue" class="form-label">Value</label>
+                <input
+                    type="number"
+                    id="inputValue"
+                    bind:value={inputValue}
+                    on:input={handleUserInput}
+                    class="form-input"
+                    placeholder="Enter value"
+                />
+            </div>
 
-    <!-- Recent Conversions -->
-    {#if recentConversions.length > 0}
-        <div class="results-section mt-8">
-            <h3 class="text-lg font-medium text-gray-800 mb-3">
-                Recent Conversions
-            </h3>
-            <div class="bg-gray-50 rounded-md overflow-hidden">
-                {#each recentConversions as conversion, i}
-                    <div
-                        class="results-content {i % 2 === 0
-                            ? 'bg-gray-50'
-                            : 'bg-white'} border-b border-gray-200 last:border-b-0"
+            <div class="flex justify-center md:col-span-1">
+                <button
+                    on:click={swapUnits}
+                    class="btn-secondary p-2 rounded-full"
+                    title="Swap units"
+                    aria-label="Swap units"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 text-gray-600"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                     >
-                        <p class="text-sm text-gray-600">
-                            {formatNumber(conversion.inputValue)}
-                            {conversion.from} =
-                            {formatNumber(conversion.result)}
-                            {conversion.to}
-                        </p>
-                        <p class="text-xs text-gray-500 mt-1">
-                            {conversion.timestamp.toLocaleTimeString()} - {conversionTypes.find(
-                                (t) => t.id === conversion.type,
-                            )?.name}
-                        </p>
-                    </div>
-                {/each}
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                        />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="md:col-span-3">
+                <label for="resultValue" class="form-label">Result</label>
+                <div
+                    id="resultValue"
+                    class="form-input bg-gray-50"
+                    aria-live="polite"
+                >
+                    {#if errorMessage}
+                        <span class="feedback feedback-error"
+                            >{errorMessage}</span
+                        >
+                    {:else}
+                        {formatNumber(result)}
+                    {/if}
+                </div>
             </div>
         </div>
-    {/if}
+
+        <!-- Conversion Formula -->
+        <div class="feedback feedback-info">
+            <h3 class="text-sm font-medium text-blue-800 mb-1">
+                Conversion Formula
+            </h3>
+            <p class="text-blue-700">
+                1 {availableUnits.find((unit) => unit.id === fromUnit)?.name ||
+                    ""} =
+                {availableUnits.find((unit) => unit.id === fromUnit)?.factor &&
+                availableUnits.find((unit) => unit.id === toUnit)?.factor
+                    ? formatNumber(
+                          availableUnits.find((unit) => unit.id === fromUnit)
+                              .factor /
+                              availableUnits.find((unit) => unit.id === toUnit)
+                                  .factor,
+                      )
+                    : ""}
+                {availableUnits.find((unit) => unit.id === toUnit)?.name || ""}
+            </p>
+        </div>
+
+        <!-- Recent Conversions -->
+        {#if recentConversions.length > 0}
+            <div class="results-section mt-8">
+                <h3 class="text-lg font-medium text-gray-800 mb-3">
+                    Recent Conversions
+                </h3>
+                <div class="bg-gray-50 rounded-md overflow-hidden">
+                    {#each recentConversions as conversion, i}
+                        <div
+                            class="results-content {i % 2 === 0
+                                ? 'bg-gray-50'
+                                : 'bg-white'} border-b border-gray-200 last:border-b-0"
+                        >
+                            <p class="text-sm text-gray-600">
+                                {formatNumber(conversion.inputValue)}
+                                {conversion.from} =
+                                {formatNumber(conversion.result)}
+                                {conversion.to}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                {conversion.timestamp.toLocaleTimeString()} - {conversionTypes.find(
+                                    (t) => t.id === conversion.type,
+                                )?.name}
+                            </p>
+                        </div>
+                    {/each}
+                </div>
+            </div>
+        {/if}
+    </div>
 </div>
 
-<style lang="postcss">
-  :global(html) {
-    scroll-behavior: smooth;
-  }
+<style>
+    .tool-container {
+        @apply bg-white h-full;
+    }
 
-  .form-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
-  }
+    .tool-header {
+        @apply mb-8 pb-6 border-b border-gray-200;
+    }
 
-  .form-input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-  }
+    .tool-content {
+        @apply space-y-6;
+    }
 
-  .form-select {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white;
-  }
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1;
+    }
 
-  .form-radio {
-    @apply flex items-center cursor-pointer;
-  }
+    .form-input {
+        @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    }
 
-  .form-radio input[type="radio"] {
-    @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300;
-  }
+    .form-select {
+        @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white;
+    }
 
-  .form-radio span {
-    @apply ml-2 text-gray-700;
-  }
+    .btn-secondary {
+        @apply px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition-colors;
+    }
 
-  .form-checkbox {
-    @apply flex items-center cursor-pointer;
-  }
+    .results-section {
+        @apply bg-gray-50 p-4 rounded-md mb-6;
+    }
 
-  .form-checkbox input[type="checkbox"] {
-    @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
-  }
+    .results-content {
+        @apply bg-white p-2 rounded border border-gray-200;
+    }
 
-  .form-checkbox span {
-    @apply ml-2 text-gray-700;
-  }
+    .feedback {
+        @apply p-3 rounded-md text-sm mb-4;
+    }
 
-  .btn-primary {
-    @apply px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors;
-  }
+    .feedback-info {
+        @apply bg-blue-50 text-blue-800;
+    }
 
-  .btn-secondary {
-    @apply px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition-colors;
-  }
-
-  .results-section {
-    @apply bg-gray-50 p-4 rounded-md mb-6;
-  }
-
-  .results-content {
-    @apply bg-white p-2 rounded border border-gray-200;
-  }
-
-  .feedback {
-    @apply p-3 rounded-md text-sm mb-4;
-  }
-
-  .feedback-info {
-    @apply bg-blue-50 text-blue-800;
-  }
-
-  .feedback-success {
-    @apply bg-green-50 text-green-800;
-  }
-
-  .feedback-warning {
-    @apply bg-yellow-50 text-yellow-800;
-  }
-
-  .feedback-error {
-    @apply bg-red-50 text-red-800;
-  }
+    .feedback-error {
+        @apply bg-red-50 text-red-800;
+    }
 </style>

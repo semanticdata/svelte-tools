@@ -102,303 +102,311 @@
 </script>
 
 <div class="tool-container">
-    <h2 class="tool-header">Volume Calculator</h2>
-
-    <div class="input-group">
-        <label for="shape-select" class="input-label">Select Shape</label>
-        <div class="radio-group">
-            <label class="radio-label">
-                <input
-                    type="radio"
-                    bind:group={selectedShape}
-                    value="rectangular_prism"
-                    on:change={handleShapeChange}
-                    class="radio-input"
-                />
-                Rectangle
-            </label>
-            <label class="radio-label">
-                <input
-                    type="radio"
-                    bind:group={selectedShape}
-                    value="cylinder"
-                    on:change={handleShapeChange}
-                    class="radio-input"
-                />
-                Cylinder
-            </label>
-            <label class="radio-label">
-                <input
-                    type="radio"
-                    bind:group={selectedShape}
-                    value="sphere"
-                    on:change={handleShapeChange}
-                    class="radio-input"
-                />
-                Sphere
-            </label>
-        </div>
-    </div>
-
-    {#if selectedShape === "rectangular_prism"}
-        <div class="input-grid">
-            <div class="input-group">
-                <label for="length" class="input-label">Length</label>
-                <input
-                    type="number"
-                    id="length"
-                    bind:value={length}
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter length"
-                    class="input-field"
-                />
-                <select bind:value={lengthUnit} class="select-field">
-                    {#each unitOptions as option}
-                        <option value={option.value}>{option.label}</option>
-                    {/each}
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label for="width" class="input-label">Width</label>
-                <input
-                    type="number"
-                    id="width"
-                    bind:value={width}
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter width"
-                    class="input-field"
-                />
-                <select bind:value={widthUnit} class="select-field">
-                    {#each unitOptions as option}
-                        <option value={option.value}>{option.label}</option>
-                    {/each}
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label for="height" class="input-label">Height</label>
-                <input
-                    type="number"
-                    id="height"
-                    bind:value={height}
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter height"
-                    class="input-field"
-                />
-                <select bind:value={heightUnit} class="select-field">
-                    {#each unitOptions as option}
-                        <option value={option.value}>{option.label}</option>
-                    {/each}
-                </select>
-            </div>
-
-            {#if isCube}
-                <div class="info-message">
-                    <p>Note: This is a cube (all sides equal).</p>
-                </div>
-            {/if}
-        </div>
-    {:else if selectedShape === "cylinder"}
-        <div class="input-grid">
-            <div class="input-group">
-                <label for="radius" class="input-label">Radius</label>
-                <input
-                    type="number"
-                    id="radius"
-                    bind:value={radius}
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter radius"
-                    class="input-field"
-                />
-                <select bind:value={radiusUnit} class="select-field">
-                    {#each unitOptions as option}
-                        <option value={option.value}>{option.label}</option>
-                    {/each}
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label for="height" class="input-label">Height</label>
-                <input
-                    type="number"
-                    id="height"
-                    bind:value={height}
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter height"
-                    class="input-field"
-                />
-                <select bind:value={heightUnit} class="select-field">
-                    {#each unitOptions as option}
-                        <option value={option.value}>{option.label}</option>
-                    {/each}
-                </select>
+    <!-- Header Section -->
+    <header class="tool-header">
+        <h1 class="text-3xl font-bold text-gray-900">Volume Calculator</h1>
+        <p class="mt-2 text-gray-600">
+            Calculate the volume of different shapes.
+        </p>
+    </header>
+    <!-- Tool Content -->
+    <div class="tool-content">
+        <div class="input-group">
+            <label for="shape-select" class="input-label">Select Shape</label>
+            <div class="radio-group">
+                <label class="form-radio">
+                    <input
+                        type="radio"
+                        bind:group={selectedShape}
+                        value="rectangular_prism"
+                        on:change={handleShapeChange}
+                        class="radio-input"
+                    />
+                    Rectangle
+                </label>
+                <label class="form-radio">
+                    <input
+                        type="radio"
+                        bind:group={selectedShape}
+                        value="cylinder"
+                        on:change={handleShapeChange}
+                        class="radio-input"
+                    />
+                    Cylinder
+                </label>
+                <label class="form-radio">
+                    <input
+                        type="radio"
+                        bind:group={selectedShape}
+                        value="sphere"
+                        on:change={handleShapeChange}
+                        class="radio-input"
+                    />
+                    Sphere
+                </label>
             </div>
         </div>
-    {:else if selectedShape === "sphere"}
-        <div class="input-grid">
-            <div class="input-group">
-                <label for="radius" class="input-label">Radius</label>
-                <input
-                    type="number"
-                    id="radius"
-                    bind:value={radius}
-                    min="0"
-                    step="0.01"
-                    placeholder="Enter radius"
-                    class="input-field"
-                />
-                <select bind:value={radiusUnit} class="select-field">
-                    {#each unitOptions as option}
-                        <option value={option.value}>{option.label}</option>
-                    {/each}
-                </select>
-            </div>
-        </div>
-    {/if}
 
-    <div class="input-group">
-        <label for="outputUnit" class="input-label">Output Unit</label>
-        <select id="outputUnit" bind:value={outputUnit} class="select-field">
-            {#each unitOptions as option}
-                <option value={option.value}>{option.label}</option>
-            {/each}
-        </select>
-    </div>
-
-    <div class="results-section">
-        <h3 class="results-header">Result</h3>
-
-        {#if hasAllRequiredValues}
-            <div class="results-grid">
-                <div>
-                    <p class="results-label">
-                        The volume of the {isCube
-                            ? "cube"
-                            : selectedShape.replace("_", " ")} is:
-                    </p>
-                    <p class="results-value">
-                        {formatNumber(volume)} cubic {outputUnit}
-                    </p>
+        {#if selectedShape === "rectangular_prism"}
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="length" class="input-label">Length</label>
+                    <input
+                        type="number"
+                        id="length"
+                        bind:value={length}
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter length"
+                        class="input-field"
+                    />
+                    <select bind:value={lengthUnit} class="select-field">
+                        {#each unitOptions as option}
+                            <option value={option.value}>{option.label}</option>
+                        {/each}
+                    </select>
                 </div>
 
-                {#if selectedShape === "rectangular_prism"}
-                    <div class="results-details">
-                        <p>
-                            Dimensions: {numLength}
-                            {lengthUnit} × {numWidth}
-                            {widthUnit} × {numHeight}
-                            {heightUnit}
-                        </p>
-                    </div>
-                {:else if selectedShape === "cylinder"}
-                    <div class="results-details">
-                        <p>
-                            Dimensions: radius {numRadius}
-                            {radiusUnit}, height {numHeight}
-                            {heightUnit}
-                        </p>
+                <div class="input-group">
+                    <label for="width" class="input-label">Width</label>
+                    <input
+                        type="number"
+                        id="width"
+                        bind:value={width}
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter width"
+                        class="input-field"
+                    />
+                    <select bind:value={widthUnit} class="select-field">
+                        {#each unitOptions as option}
+                            <option value={option.value}>{option.label}</option>
+                        {/each}
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="height" class="input-label">Height</label>
+                    <input
+                        type="number"
+                        id="height"
+                        bind:value={height}
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter height"
+                        class="input-field"
+                    />
+                    <select bind:value={heightUnit} class="select-field">
+                        {#each unitOptions as option}
+                            <option value={option.value}>{option.label}</option>
+                        {/each}
+                    </select>
+                </div>
+
+                {#if isCube}
+                    <div class="info-message">
+                        <p>Note: This is a cube (all sides equal).</p>
                     </div>
                 {/if}
             </div>
-        {:else}
-            <div class="info-message">
-                <p>
-                    {#if selectedShape === "rectangular_prism"}
-                        Please enter valid length, width, and height values to
-                        see calculation results.
-                    {:else if selectedShape === "cylinder"}
-                        Please enter valid radius and height values to see
-                        calculation results.
-                    {:else}
-                        Please enter a valid radius value to see calculation
-                        results.
-                    {/if}
-                </p>
+        {:else if selectedShape === "cylinder"}
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="radius" class="input-label">Radius</label>
+                    <input
+                        type="number"
+                        id="radius"
+                        bind:value={radius}
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter radius"
+                        class="input-field"
+                    />
+                    <select bind:value={radiusUnit} class="select-field">
+                        {#each unitOptions as option}
+                            <option value={option.value}>{option.label}</option>
+                        {/each}
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="height" class="input-label">Height</label>
+                    <input
+                        type="number"
+                        id="height"
+                        bind:value={height}
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter height"
+                        class="input-field"
+                    />
+                    <select bind:value={heightUnit} class="select-field">
+                        {#each unitOptions as option}
+                            <option value={option.value}>{option.label}</option>
+                        {/each}
+                    </select>
+                </div>
+            </div>
+        {:else if selectedShape === "sphere"}
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="radius" class="input-label">Radius</label>
+                    <input
+                        type="number"
+                        id="radius"
+                        bind:value={radius}
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter radius"
+                        class="input-field"
+                    />
+                    <select bind:value={radiusUnit} class="select-field">
+                        {#each unitOptions as option}
+                            <option value={option.value}>{option.label}</option>
+                        {/each}
+                    </select>
+                </div>
             </div>
         {/if}
+
+        <div class="input-group">
+            <label for="outputUnit" class="input-label">Output Unit</label>
+            <select
+                id="outputUnit"
+                bind:value={outputUnit}
+                class="select-field"
+            >
+                {#each unitOptions as option}
+                    <option value={option.value}>{option.label}</option>
+                {/each}
+            </select>
+        </div>
+
+        <div class="results-section">
+            <h3 class="results-header">Result</h3>
+
+            {#if hasAllRequiredValues}
+                <div class="results-grid">
+                    <div>
+                        <p class="results-label">
+                            The volume of the {isCube
+                                ? "cube"
+                                : selectedShape.replace("_", " ")} is:
+                        </p>
+                        <p class="results-value">
+                            {formatNumber(volume)} cubic {outputUnit}
+                        </p>
+                    </div>
+
+                    {#if selectedShape === "rectangular_prism"}
+                        <div class="results-details">
+                            <p>
+                                Dimensions: {numLength}
+                                {lengthUnit} × {numWidth}
+                                {widthUnit} × {numHeight}
+                                {heightUnit}
+                            </p>
+                        </div>
+                    {:else if selectedShape === "cylinder"}
+                        <div class="results-details">
+                            <p>
+                                Dimensions: radius {numRadius}
+                                {radiusUnit}, height {numHeight}
+                                {heightUnit}
+                            </p>
+                        </div>
+                    {/if}
+                </div>
+            {:else}
+                <div class="info-message">
+                    <p>
+                        {#if selectedShape === "rectangular_prism"}
+                            Please enter valid length, width, and height values
+                            to see calculation results.
+                        {:else if selectedShape === "cylinder"}
+                            Please enter valid radius and height values to see
+                            calculation results.
+                        {:else}
+                            Please enter a valid radius value to see calculation
+                            results.
+                        {/if}
+                    </p>
+                </div>
+            {/if}
+        </div>
     </div>
-
-    <style>
-        .tool-container {
-            @apply bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto my-8;
-        }
-
-        .tool-header {
-            @apply text-3xl font-extrabold text-gray-900 mb-8 text-center;
-        }
-
-        .input-group {
-            @apply mb-6;
-        }
-
-        .input-label {
-            @apply block text-sm font-medium text-gray-700 mb-2;
-        }
-
-        .input-field {
-            @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900;
-        }
-
-        .select-field {
-            @apply w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900;
-        }
-
-        .radio-group {
-            @apply flex flex-wrap gap-4;
-        }
-
-        .radio-label {
-            @apply flex items-center cursor-pointer text-gray-700;
-        }
-
-        .radio-input {
-            @apply h-4 w-4 text-blue-600 focus:ring-blue-500;
-        }
-
-        .button-primary {
-            @apply bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150;
-        }
-
-        .button-secondary {
-            @apply bg-gray-300 text-gray-800 px-5 py-2 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition ease-in-out duration-150;
-        }
-
-        .results-section {
-            @apply bg-gray-50 p-6 rounded-lg shadow-inner mt-8;
-        }
-
-        .results-header {
-            @apply text-2xl font-semibold text-gray-800 mb-4;
-        }
-
-        .results-grid {
-            @apply grid grid-cols-1 md:grid-cols-2 gap-4;
-        }
-
-        .results-label {
-            @apply text-gray-600 text-sm;
-        }
-
-        .results-value {
-            @apply text-blue-700 text-3xl font-bold;
-        }
-
-        .info-message {
-            @apply p-4 bg-blue-100 text-blue-800 rounded-md border border-blue-200;
-        }
-
-        .error-message {
-            @apply p-4 bg-red-100 text-red-800 rounded-md border border-red-200;
-        }
-
-        .input-grid {
-            @apply grid grid-cols-1 md:grid-cols-2 gap-6 mb-6;
-        }
-    </style>
 </div>
+
+<style>
+    .tool-container {
+        @apply bg-white h-full;
+    }
+
+    .tool-header {
+        @apply mb-8 pb-6 border-b border-gray-200;
+    }
+
+    .tool-content {
+        @apply space-y-6;
+    }
+
+    .input-group {
+        @apply mb-6;
+    }
+
+    .input-label {
+        @apply block text-sm font-medium text-gray-700 mb-2;
+    }
+
+    .input-field {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900;
+    }
+
+    .select-field {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900;
+    }
+
+    .radio-group {
+        @apply flex flex-wrap gap-4;
+    }
+
+    .form-radio {
+        @apply flex items-center cursor-pointer;
+    }
+
+    .form-radio input[type="radio"] {
+        @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300;
+    }
+
+    .form-radio span {
+        @apply ml-2 text-gray-700;
+    }
+
+    .results-section {
+        @apply bg-gray-50 p-6 rounded-lg shadow-inner mt-8;
+    }
+
+    .results-header {
+        @apply text-2xl font-semibold text-gray-800 mb-4;
+    }
+
+    .results-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+    }
+
+    .results-label {
+        @apply text-gray-600 text-sm;
+    }
+
+    .results-value {
+        @apply text-blue-700 text-3xl font-bold;
+    }
+
+    .info-message {
+        @apply p-4 bg-blue-100 text-blue-800 rounded-md border border-blue-200;
+    }
+
+    .input-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-6 mb-6;
+    }
+</style>

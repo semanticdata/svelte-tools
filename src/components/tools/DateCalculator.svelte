@@ -57,11 +57,11 @@
     <div class="mb-4">
       <fieldset class="flex flex-wrap gap-4 mb-4">
         <legend class="sr-only">Calculation Mode</legend>
-        <label class="form-radio">
+        <label class="form-label">
           <input type="radio" bind:group={calculationMode} value="add" />
           <span>Add/Subtract Time</span>
         </label>
-        <label class="form-radio">
+        <label class="form-label">
           <input type="radio" bind:group={calculationMode} value="difference" />
           <span>Calculate Difference</span>
         </label>
@@ -174,15 +174,7 @@
     @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
   }
 
-  .form-radio {
-    @apply flex items-center cursor-pointer;
-  }
-
-  .form-radio input[type="radio"] {
-    @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300;
-  }
-
-  .form-radio span {
+  .form-label span {
     @apply ml-2 text-gray-700;
   }
 
