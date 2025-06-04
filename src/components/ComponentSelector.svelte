@@ -50,7 +50,7 @@
       : '-translate-x-full md:translate-x-0'} md:relative h-full overflow-y-auto"
   >
     <div class="p-4 border-b border-gray-200">
-      <h1 class="text-xl font-bold text-gray-800">Tools</h1>
+      <h1 class="text-xl font-bold text-gray-800">Svelte Tools</h1>
     </div>
     <nav class="p-2">
       {#each Object.entries(componentCategories) as [category, items]}
@@ -110,7 +110,7 @@
               .flat()
               .find((tool) => tool.id === selectedComponent)?.name || "Tool"}
           {:else}
-            Tools
+            Svelte Tools
           {/if}
         </h1>
         <div class="w-10"></div>

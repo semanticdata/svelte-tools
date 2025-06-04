@@ -1,13 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Section from "../components/Section.svelte";
 import ComponentSelector from "../components/ComponentSelector.svelte";
 
 const selected = Astro.url.searchParams.get("component");
 ---
 
 <Layout>
-  <Section>
-    <ComponentSelector client:load initialComponent={selected} />
-  </Section>
+  <ComponentSelector client:load initialComponent={selected} />
 </Layout>
