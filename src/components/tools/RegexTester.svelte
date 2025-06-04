@@ -30,7 +30,9 @@ just.text`;
 </script>
 
 <div class="bg-white rounded-lg shadow-sm p-6 h-full">
-  <h2 class="text-xl font-semibold text-gray-800 mb-4">Regular Expression Tester</h2>
+  <h2 class="text-xl font-semibold text-gray-800 mb-4">
+    Regular Expression Tester
+  </h2>
 
   <div class="space-y-4 mb-6">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -73,7 +75,9 @@ just.text`;
     {#if error}
       <p class="feedback feedback-error">{error}</p>
     {:else if matches}
-      <p class="feedback feedback-success">Found {matches.length} match{matches.length === 1 ? '' : 'es'}</p>
+      <p class="feedback feedback-success">
+        Found {matches.length} match{matches.length === 1 ? "" : "es"}
+      </p>
       <div class="mt-2 space-y-1">
         {#each matches as match}
           <div class="results-content">{match}</div>

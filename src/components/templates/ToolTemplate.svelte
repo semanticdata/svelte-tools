@@ -13,19 +13,18 @@
     // ================================
     // export let someProp: string;
 
-
     // ================================
     // 3. Reactive State
     // ================================
     let state: ToolState = {
         isLoading: false,
         error: null,
-        success: null
+        success: null,
     };
 
     // Example form data
     let formData = {
-        exampleInput: ''
+        exampleInput: "",
     };
 
     // ================================
@@ -41,35 +40,37 @@
         return formData.exampleInput.trim().length > 0;
     }
 
-
     function handleSubmit() {
         if (!isFormValid) {
-            setError('Please fill in all required fields');
+            setError("Please fill in all required fields");
             return;
         }
 
         state.isLoading = true;
-        
+
         try {
             // Process the form data here
-            console.log('Form submitted:', formData);
-            
+            console.log("Form submitted:", formData);
+
             // Simulate API call
             setTimeout(() => {
-                setSuccess('Operation completed successfully!');
+                setSuccess("Operation completed successfully!");
                 resetForm();
                 state.isLoading = false;
             }, 1000);
         } catch (error) {
-            setError(error instanceof Error ? error.message : 'An unknown error occurred');
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "An unknown error occurred",
+            );
             state.isLoading = false;
         }
     }
 
-
     function resetForm() {
         formData = {
-            exampleInput: ''
+            exampleInput: "",
         };
         state.error = null;
         state.success = null;
@@ -100,19 +101,20 @@
         </p>
     </header>
 
-
     <!-- Main Content -->
     <div class="tool-content">
         <!-- Feedback Messages -->
         {#if state.error}
             <div class="feedback error">
-                <span class="font-medium">Error:</span> {state.error}
+                <span class="font-medium">Error:</span>
+                {state.error}
             </div>
         {/if}
-        
+
         {#if state.success}
             <div class="feedback success">
-                <span class="font-medium">Success:</span> {state.success}
+                <span class="font-medium">Success:</span>
+                {state.success}
             </div>
         {/if}
 
@@ -130,7 +132,9 @@
                     placeholder="Enter some text"
                     disabled={state.isLoading}
                 />
-                <p class="form-hint">This is a helpful hint for the input field.</p>
+                <p class="form-hint">
+                    This is a helpful hint for the input field.
+                </p>
             </div>
         </div>
 
@@ -148,7 +152,7 @@
                     Submit
                 {/if}
             </button>
-            
+
             <button
                 type="button"
                 class="btn btn-secondary"
@@ -160,9 +164,12 @@
         </div>
 
         <!-- Results Section (if applicable) -->
-        {#if false} <!-- Replace with actual condition -->
+        {#if false}
+            <!-- Replace with actual condition -->
             <div class="results-section">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">Results</h2>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    Results
+                </h2>
                 <div class="results-content">
                     <!-- Results will be displayed here -->
                 </div>
@@ -188,7 +195,7 @@
     .tool-content {
         @apply space-y-6;
     }
-    
+
     /* Form Elements */
     .form-group {
         @apply mb-6;
@@ -208,12 +215,10 @@
         @apply mt-1 text-sm text-gray-500;
     }
 
-
     /* Buttons */
     .action-buttons {
         @apply flex space-x-3 mt-8 pt-6 border-t border-gray-200;
     }
-
 
     .btn {
         @apply px-4 py-2 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2;
@@ -226,7 +231,6 @@
     .btn-primary:disabled {
         @apply bg-indigo-300 cursor-not-allowed;
     }
-
 
     .btn-secondary {
         @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500;

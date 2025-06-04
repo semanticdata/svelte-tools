@@ -113,7 +113,9 @@
 </script>
 
 <div class="bg-white rounded-lg shadow-sm p-6 h-full">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">Broken Link Checker</h2>
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">
+        Broken Link Checker
+    </h2>
 
     <div class="flex flex-col md:flex-row gap-4 mb-4">
         <input
@@ -123,21 +125,14 @@
             placeholder="Enter website URL (e.g., https://www.example.com)"
             required
         />
-        <button
-            on:click={checkLinks}
-            disabled={isLoading}
-            class="btn-primary"
-        >
+        <button on:click={checkLinks} disabled={isLoading} class="btn-primary">
             Check Links
         </button>
     </div>
 
     <div class="mb-6">
         <label class="form-checkbox">
-            <input
-                type="checkbox"
-                bind:checked={useMockData}
-            />
+            <input type="checkbox" bind:checked={useMockData} />
             <span>Use Mock Data</span>
         </label>
     </div>
@@ -164,12 +159,12 @@
                 </div>
 
                 {#if results.workingLinks.length > 0}
-                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Working Links</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">
+                        Working Links
+                    </h3>
                     <div class="space-y-2 mb-6">
                         {#each results.workingLinks as link}
-                            <div
-                                class="feedback feedback-success"
-                            >
+                            <div class="feedback feedback-success">
                                 <div class="font-medium break-all">
                                     {link.url}
                                 </div>
@@ -182,16 +177,14 @@
                 {/if}
 
                 {#if results.brokenLinks.length > 0}
-                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Broken Links</h3>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">
+                        Broken Links
+                    </h3>
                     <div class="space-y-2">
                         {#each results.brokenLinks as link}
-                            <div
-                                class="feedback feedback-error"
-                            >
+                            <div class="feedback feedback-error">
                                 <div class="font-medium break-all">{link}</div>
-                                <div class="text-sm">
-                                    Link is broken
-                                </div>
+                                <div class="text-sm">Link is broken</div>
                             </div>
                         {/each}
                     </div>
@@ -202,79 +195,79 @@
 </div>
 
 <style lang="postcss">
-  :global(html) {
-    scroll-behavior: smooth;
-  }
+    :global(html) {
+        scroll-behavior: smooth;
+    }
 
-  .form-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
-  }
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1;
+    }
 
-  .form-input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-  }
+    .form-input {
+        @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    }
 
-  .form-select {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white;
-  }
+    .form-select {
+        @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white;
+    }
 
-  .form-radio {
-    @apply flex items-center cursor-pointer;
-  }
+    .form-radio {
+        @apply flex items-center cursor-pointer;
+    }
 
-  .form-radio input[type="radio"] {
-    @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300;
-  }
+    .form-radio input[type="radio"] {
+        @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300;
+    }
 
-  .form-radio span {
-    @apply ml-2 text-gray-700;
-  }
+    .form-radio span {
+        @apply ml-2 text-gray-700;
+    }
 
-  .form-checkbox {
-    @apply flex items-center cursor-pointer;
-  }
+    .form-checkbox {
+        @apply flex items-center cursor-pointer;
+    }
 
-  .form-checkbox input[type="checkbox"] {
-    @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
-  }
+    .form-checkbox input[type="checkbox"] {
+        @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
+    }
 
-  .form-checkbox span {
-    @apply ml-2 text-gray-700;
-  }
+    .form-checkbox span {
+        @apply ml-2 text-gray-700;
+    }
 
-  .btn-primary {
-    @apply px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors;
-  }
+    .btn-primary {
+        @apply px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors;
+    }
 
-  .btn-secondary {
-    @apply px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition-colors;
-  }
+    .btn-secondary {
+        @apply px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition-colors;
+    }
 
-  .results-section {
-    @apply bg-gray-50 p-4 rounded-md mb-6;
-  }
+    .results-section {
+        @apply bg-gray-50 p-4 rounded-md mb-6;
+    }
 
-  .results-content {
-    @apply text-lg font-medium text-gray-900;
-  }
+    .results-content {
+        @apply text-lg font-medium text-gray-900;
+    }
 
-  .feedback {
-    @apply p-3 rounded-md text-sm mb-4;
-  }
+    .feedback {
+        @apply p-3 rounded-md text-sm mb-4;
+    }
 
-  .feedback-info {
-    @apply bg-blue-50 text-blue-800;
-  }
+    .feedback-info {
+        @apply bg-blue-50 text-blue-800;
+    }
 
-  .feedback-success {
-    @apply bg-green-50 text-green-800;
-  }
+    .feedback-success {
+        @apply bg-green-50 text-green-800;
+    }
 
-  .feedback-warning {
-    @apply bg-yellow-50 text-yellow-800;
-  }
+    .feedback-warning {
+        @apply bg-yellow-50 text-yellow-800;
+    }
 
-  .feedback-error {
-    @apply bg-red-50 text-red-800;
-  }
+    .feedback-error {
+        @apply bg-red-50 text-red-800;
+    }
 </style>

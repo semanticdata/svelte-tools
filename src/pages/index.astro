@@ -1,10 +1,69 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ComponentSelector from "../components/ComponentSelector.svelte";
+import { componentCategories } from "../components/utils/useComponentSelector";
 
-const selected = Astro.url.searchParams.get("component");
+const urlSelected = Astro.url.searchParams.get("component") as string | null;
+let selectedComponent: string | null = urlSelected;
 ---
 
 <Layout>
-  <ComponentSelector client:load initialComponent={selected} />
+  <Fragment slot="sidebar">
+    {
+      Object.entries(componentCategories).map(([category, items]) => (
+        <div class="mb-4" data-key={category}>
+          <h2 class="px-3 py-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">
+            {category}
+          </h2>
+          <ul class="space-y-1">
+            {items.map(({ id, name }) => (
+              <li data-key={id}>
+                <button
+                  class={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${selectedComponent === id ? "bg-blue-50 text-blue-700" : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"}`}
+                  data-component-id={id}
+                >
+                  {name}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </Fragment>
+  <ComponentSelector client:load selectedComponent={selectedComponent} />
+
+  <script is:inline>
+    // Handle component selection
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-component-id]");
+      if (!button) return;
+
+      const componentId = button.getAttribute("data-component-id");
+      if (!componentId) return;
+
+      // Update the URL
+      const url = new URL(window.location);
+      url.searchParams.set("component", componentId);
+      window.history.pushState({}, "", url);
+
+      // Dispatch a custom event that our Svelte component can listen to
+      document.dispatchEvent(
+        new CustomEvent("component-selected", {
+          detail: componentId,
+        }),
+      );
+    });
+
+    // Handle back/forward navigation
+    window.addEventListener("popstate", () => {
+      const url = new URL(window.location);
+      const componentId = url.searchParams.get("component");
+      document.dispatchEvent(
+        new CustomEvent("component-selected", {
+          detail: componentId,
+        }),
+      );
+    });
+  </script>
 </Layout>
