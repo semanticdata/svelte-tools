@@ -51,7 +51,7 @@
 
 <!-- Main content area only, layout handled by parent -->
 {#if Component}
-  <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+  <div class="h-full">
     <svelte:component this={Component} />
   </div>
 {:else}

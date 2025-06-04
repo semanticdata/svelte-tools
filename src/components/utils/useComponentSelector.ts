@@ -10,6 +10,7 @@ import TextComparer from "../tools/TextComparer.svelte";
 import UnitConverter from "../tools/UnitConverter.svelte";
 import VolumeCalculator from "../tools/VolumeCalculator.svelte";
 import RegexTester from "../tools/RegexTester.svelte";
+import PlaceholderTool from "../tools/PlaceholderTool.svelte";
 
 type ComponentType = typeof SvelteComponent;
 
@@ -35,6 +36,7 @@ export const components: Record<string, ComponentType> = {
   UnitConverter,
   VolumeCalculator,
   RegexTester,
+  PlaceholderTool,
 };
 
 export const componentCategories: ComponentCategory = {
@@ -82,6 +84,7 @@ export const componentCategories: ComponentCategory = {
   Utilities: [
     { id: "LinkChecker", name: "Link Checker", component: LinkChecker },
     { id: "PomodoroTimer", name: "Pomodoro Timer", component: PomodoroTimer },
+    { id: "PlaceholderTool", name: "Placeholder Tool", component: PlaceholderTool },
   ],
 };
 
