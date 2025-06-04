@@ -42,7 +42,7 @@
 
 <div class="tool-container">
   <!-- Header Section -->
-  <header class="tool-header">
+  <header class="tool-header mb-4 pb-4 border-b border-gray-200">
     <h1 class="text-3xl font-bold text-gray-900">Asphalt Calculator</h1>
     <p class="mt-2 text-gray-600">
       Calculate the amount of asphalt needed for a given area.
@@ -50,7 +50,7 @@
   </header>
 
   <!-- Tool Content -->
-  <div class="tool-content">
+  <div class="tool-content space-y-4">
     <fieldset class="form-group">
       <legend class="form-label">Input Mode</legend>
       <div class="flex gap-4 flex-wrap mt-1">
@@ -103,7 +103,7 @@
           />
         </div>
       {:else}
-        <div class="form-group md:col-span-2">
+        <div class="form-group col-span-2">
           <label for="directArea" class="form-label">Area</label>
           <div class="flex space-x-2">
             <input
@@ -153,7 +153,7 @@
     </div>
 
     <!-- Results Section -->
-    <div class="results-section">
+    <div class="results-section mt-8 pt-6 border-t border-gray-200">
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Results</h2>
       <div class="results-content">
         {#if hasAllRequiredValues}
@@ -210,23 +210,6 @@
 </div>
 
 <style>
-  .tool-container {
-    @apply bg-white h-full;
-  }
-
-  .tool-header {
-    @apply mb-8 pb-6 border-b border-gray-200;
-  }
-
-  .tool-content {
-    @apply space-y-6;
-  }
-
-  /* Form Elements */
-  .form-group {
-    @apply mb-6;
-  }
-
   .form-label {
     @apply block text-sm font-medium text-gray-700 mb-1;
   }
@@ -252,14 +235,5 @@
 
   .success {
     @apply bg-green-50 text-green-700 border-l-4 border-green-500;
-  }
-
-  /* Results Section */
-  .results-section {
-    @apply mt-8 pt-6 border-t border-gray-200;
-  }
-
-  .results-content {
-    /* Add any specific styling for the results content area if needed */
   }
 </style>

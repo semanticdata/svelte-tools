@@ -200,8 +200,14 @@
     }
 </script>
 
-<div class="bg-white rounded-lg shadow-sm p-6 h-full">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">Text Comparer</h2>
+<div class="tool-container">
+    <!-- Header Section -->
+    <header class="tool-header">
+        <h1 class="text-3xl font-bold text-gray-900">Text Comparer</h1>
+        <p class="mt-2 text-gray-600">
+            Compare two texts and see the differences.
+        </p>
+    </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>

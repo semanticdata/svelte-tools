@@ -60,9 +60,9 @@
     }
 </script>
 
-<div class="tool-container">
+<div class="tool-container bg-white h-full">
     <!-- Header Section -->
-    <header class="tool-header">
+    <header class="tool-header mb-8 pb-6 border-b border-gray-200">
         <h1 class="text-3xl font-bold text-gray-900">Area Calculator</h1>
         <p class="mt-2 text-gray-600">
             Calculate the area of different shapes.
@@ -70,7 +70,7 @@
     </header>
 
     <!-- Tool Content -->
-    <div class="tool-content">
+    <div class="tool-content space-y-4">
         <fieldset>
             <legend class="block text-gray-700 font-medium mb-2"
                 >Select Shape</legend
@@ -110,7 +110,6 @@
                 </label>
             </div>
         </fieldset>
-        <!-- </div> -->
 
         {#if selectedShape === "rectangle"}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -279,17 +278,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .tool-container {
-        @apply bg-white h-full;
-    }
-
-    .tool-header {
-        @apply mb-8 pb-6 border-b border-gray-200;
-    }
-
-    .tool-content {
-        @apply space-y-6;
-    }
-</style>
