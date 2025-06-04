@@ -101,225 +101,262 @@
         widthUnit === heightUnit;
 </script>
 
-<div class="tool-container">
-    <!-- Header Section -->
-    <header class="tool-header">
-        <h1 class="text-3xl font-bold text-gray-900">Volume Calculator</h1>
-        <p class="mt-2 text-gray-600">
-            Calculate the volume of different shapes.
-        </p>
-    </header>
-    <!-- Tool Content -->
-    <div class="tool-content">
-        <div class="input-group">
-            <label for="shape-select" class="input-label">Select Shape</label>
-            <div class="radio-group">
-                <label class="form-radio">
-                    <input
-                        type="radio"
-                        bind:group={selectedShape}
-                        value="rectangular_prism"
-                        on:change={handleShapeChange}
-                        class="radio-input"
-                    />
-                    Rectangle
-                </label>
-                <label class="form-radio">
-                    <input
-                        type="radio"
-                        bind:group={selectedShape}
-                        value="cylinder"
-                        on:change={handleShapeChange}
-                        class="radio-input"
-                    />
-                    Cylinder
-                </label>
-                <label class="form-radio">
-                    <input
-                        type="radio"
-                        bind:group={selectedShape}
-                        value="sphere"
-                        on:change={handleShapeChange}
-                        class="radio-input"
-                    />
-                    Sphere
-                </label>
-            </div>
-        </div>
-
-        {#if selectedShape === "rectangular_prism"}
-            <div class="input-grid">
-                <div class="input-group">
-                    <label for="length" class="input-label">Length</label>
-                    <input
-                        type="number"
-                        id="length"
-                        bind:value={length}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter length"
-                        class="input-field"
-                    />
-                    <select bind:value={lengthUnit} class="select-field">
-                        {#each unitOptions as option}
-                            <option value={option.value}>{option.label}</option>
-                        {/each}
-                    </select>
+<div class="max-w-4xl mx-auto p-4">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <header class="mb-6 border-b pb-4">
+            <h1 class="text-3xl font-bold text-gray-900">Volume Calculator</h1>
+            <p class="mt-2 text-gray-600">
+                Calculate the volume of different shapes.
+            </p>
+        </header>
+        <main class="space-y-6">
+            <section>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Select Shape</label
+                >
+                <div class="flex flex-wrap gap-4">
+                    <label class="flex items-center cursor-pointer">
+                        <input
+                            type="radio"
+                            bind:group={selectedShape}
+                            value="rectangular_prism"
+                            on:change={handleShapeChange}
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                        />
+                        <span class="ml-2 text-gray-700">Rectangle</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer">
+                        <input
+                            type="radio"
+                            bind:group={selectedShape}
+                            value="cylinder"
+                            on:change={handleShapeChange}
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                        />
+                        <span class="ml-2 text-gray-700">Cylinder</span>
+                    </label>
+                    <label class="flex items-center cursor-pointer">
+                        <input
+                            type="radio"
+                            bind:group={selectedShape}
+                            value="sphere"
+                            on:change={handleShapeChange}
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                        />
+                        <span class="ml-2 text-gray-700">Sphere</span>
+                    </label>
                 </div>
-
-                <div class="input-group">
-                    <label for="width" class="input-label">Width</label>
-                    <input
-                        type="number"
-                        id="width"
-                        bind:value={width}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter width"
-                        class="input-field"
-                    />
-                    <select bind:value={widthUnit} class="select-field">
-                        {#each unitOptions as option}
-                            <option value={option.value}>{option.label}</option>
-                        {/each}
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="height" class="input-label">Height</label>
-                    <input
-                        type="number"
-                        id="height"
-                        bind:value={height}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter height"
-                        class="input-field"
-                    />
-                    <select bind:value={heightUnit} class="select-field">
-                        {#each unitOptions as option}
-                            <option value={option.value}>{option.label}</option>
-                        {/each}
-                    </select>
-                </div>
-
+            </section>
+            {#if selectedShape === "rectangular_prism"}
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Length</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={length}
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter length"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                        />
+                        <select
+                            bind:value={lengthUnit}
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
+                        >
+                            {#each unitOptions as option}
+                                <option value={option.value}
+                                    >{option.label}</option
+                                >
+                            {/each}
+                        </select>
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Width</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={width}
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter width"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                        />
+                        <select
+                            bind:value={widthUnit}
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
+                        >
+                            {#each unitOptions as option}
+                                <option value={option.value}
+                                    >{option.label}</option
+                                >
+                            {/each}
+                        </select>
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Height</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={height}
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter height"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                        />
+                        <select
+                            bind:value={heightUnit}
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
+                        >
+                            {#each unitOptions as option}
+                                <option value={option.value}
+                                    >{option.label}</option
+                                >
+                            {/each}
+                        </select>
+                    </div>
+                </section>
                 {#if isCube}
-                    <div class="info-message">
-                        <p>Note: This is a cube (all sides equal).</p>
+                    <div
+                        class="p-3 bg-blue-100 text-blue-800 rounded-md border border-blue-200 mt-2"
+                    >
+                        Note: This is a cube (all sides equal).
                     </div>
                 {/if}
-            </div>
-        {:else if selectedShape === "cylinder"}
-            <div class="input-grid">
-                <div class="input-group">
-                    <label for="radius" class="input-label">Radius</label>
-                    <input
-                        type="number"
-                        id="radius"
-                        bind:value={radius}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter radius"
-                        class="input-field"
-                    />
-                    <select bind:value={radiusUnit} class="select-field">
-                        {#each unitOptions as option}
-                            <option value={option.value}>{option.label}</option>
-                        {/each}
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="height" class="input-label">Height</label>
-                    <input
-                        type="number"
-                        id="height"
-                        bind:value={height}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter height"
-                        class="input-field"
-                    />
-                    <select bind:value={heightUnit} class="select-field">
-                        {#each unitOptions as option}
-                            <option value={option.value}>{option.label}</option>
-                        {/each}
-                    </select>
-                </div>
-            </div>
-        {:else if selectedShape === "sphere"}
-            <div class="input-grid">
-                <div class="input-group">
-                    <label for="radius" class="input-label">Radius</label>
-                    <input
-                        type="number"
-                        id="radius"
-                        bind:value={radius}
-                        min="0"
-                        step="0.01"
-                        placeholder="Enter radius"
-                        class="input-field"
-                    />
-                    <select bind:value={radiusUnit} class="select-field">
-                        {#each unitOptions as option}
-                            <option value={option.value}>{option.label}</option>
-                        {/each}
-                    </select>
-                </div>
-            </div>
-        {/if}
-
-        <div class="input-group">
-            <label for="outputUnit" class="input-label">Output Unit</label>
-            <select
-                id="outputUnit"
-                bind:value={outputUnit}
-                class="select-field"
-            >
-                {#each unitOptions as option}
-                    <option value={option.value}>{option.label}</option>
-                {/each}
-            </select>
-        </div>
-
-        <div class="results-section">
-            <h3 class="results-header">Result</h3>
-
-            {#if hasAllRequiredValues}
-                <div class="results-grid">
+            {:else if selectedShape === "cylinder"}
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <p class="results-label">
-                            The volume of the {isCube
-                                ? "cube"
-                                : selectedShape.replace("_", " ")} is:
-                        </p>
-                        <p class="results-value">
-                            {formatNumber(volume)} cubic {outputUnit}
-                        </p>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Radius</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={radius}
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter radius"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                        />
+                        <select
+                            bind:value={radiusUnit}
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
+                        >
+                            {#each unitOptions as option}
+                                <option value={option.value}
+                                    >{option.label}</option
+                                >
+                            {/each}
+                        </select>
                     </div>
-
-                    {#if selectedShape === "rectangular_prism"}
-                        <div class="results-details">
-                            <p>
-                                Dimensions: {numLength}
-                                {lengthUnit} × {numWidth}
-                                {widthUnit} × {numHeight}
-                                {heightUnit}
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Height</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={height}
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter height"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                        />
+                        <select
+                            bind:value={heightUnit}
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
+                        >
+                            {#each unitOptions as option}
+                                <option value={option.value}
+                                    >{option.label}</option
+                                >
+                            {/each}
+                        </select>
+                    </div>
+                </section>
+            {:else if selectedShape === "sphere"}
+                <section class="grid grid-cols-1 md:grid-cols-1 gap-6">
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-gray-700 mb-2"
+                            >Radius</label
+                        >
+                        <input
+                            type="number"
+                            bind:value={radius}
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter radius"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                        />
+                        <select
+                            bind:value={radiusUnit}
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
+                        >
+                            {#each unitOptions as option}
+                                <option value={option.value}
+                                    >{option.label}</option
+                                >
+                            {/each}
+                        </select>
+                    </div>
+                </section>
+            {/if}
+            <section>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Output Unit</label
+                >
+                <select
+                    bind:value={outputUnit}
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
+                >
+                    {#each unitOptions as option}
+                        <option value={option.value}>{option.label}</option>
+                    {/each}
+                </select>
+            </section>
+            <section class="bg-gray-50 p-6 rounded-lg shadow-inner mt-8">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+                    Result
+                </h3>
+                {#if hasAllRequiredValues}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-gray-600 text-sm">
+                                The volume of the {isCube
+                                    ? "cube"
+                                    : selectedShape.replace("_", " ")} is:
+                            </p>
+                            <p class="text-blue-700 text-3xl font-bold">
+                                {formatNumber(volume)} cubic {outputUnit}
                             </p>
                         </div>
-                    {:else if selectedShape === "cylinder"}
-                        <div class="results-details">
-                            <p>
-                                Dimensions: radius {numRadius}
-                                {radiusUnit}, height {numHeight}
-                                {heightUnit}
-                            </p>
-                        </div>
-                    {/if}
-                </div>
-            {:else}
-                <div class="info-message">
-                    <p>
+                        {#if selectedShape === "rectangular_prism"}
+                            <div class="text-gray-700">
+                                <p>
+                                    Dimensions: {numLength}{lengthUnit} × {numWidth}{widthUnit}
+                                    × {numHeight}{heightUnit}
+                                </p>
+                            </div>
+                        {:else if selectedShape === "cylinder"}
+                            <div class="text-gray-700">
+                                <p>
+                                    Dimensions: radius {numRadius}{radiusUnit},
+                                    height {numHeight}{heightUnit}
+                                </p>
+                            </div>
+                        {/if}
+                    </div>
+                {:else}
+                    <div
+                        class="p-4 bg-blue-100 text-blue-800 rounded-md border border-blue-200"
+                    >
                         {#if selectedShape === "rectangular_prism"}
                             Please enter valid length, width, and height values
                             to see calculation results.
@@ -330,83 +367,33 @@
                             Please enter a valid radius value to see calculation
                             results.
                         {/if}
-                    </p>
-                </div>
-            {/if}
-        </div>
+                    </div>
+                {/if}
+            </section>
+            <section class="mt-8">
+                <h4 class="text-lg font-semibold mb-2">How it works</h4>
+                <ul class="list-disc list-inside text-gray-600 space-y-1">
+                    <li>
+                        Rectangular Prism: <span class="font-mono"
+                            >length × width × height</span
+                        >
+                    </li>
+                    <li>
+                        Cylinder: <span class="font-mono"
+                            >π × radius² × height</span
+                        >
+                    </li>
+                    <li>
+                        Sphere: <span class="font-mono"
+                            >(4/3) × π × radius³</span
+                        >
+                    </li>
+                    <li>
+                        All units are converted to the selected output unit for
+                        the final result.
+                    </li>
+                </ul>
+            </section>
+        </main>
     </div>
 </div>
-
-<style>
-    .tool-container {
-        @apply bg-white h-full;
-    }
-
-    .tool-header {
-        @apply mb-8 pb-6 border-b border-gray-200;
-    }
-
-    .tool-content {
-        @apply space-y-6;
-    }
-
-    .input-group {
-        @apply mb-6;
-    }
-
-    .input-label {
-        @apply block text-sm font-medium text-gray-700 mb-2;
-    }
-
-    .input-field {
-        @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900;
-    }
-
-    .select-field {
-        @apply w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900;
-    }
-
-    .radio-group {
-        @apply flex flex-wrap gap-4;
-    }
-
-    .form-radio {
-        @apply flex items-center cursor-pointer;
-    }
-
-    .form-radio input[type="radio"] {
-        @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300;
-    }
-
-    .form-radio span {
-        @apply ml-2 text-gray-700;
-    }
-
-    .results-section {
-        @apply bg-gray-50 p-6 rounded-lg shadow-inner mt-8;
-    }
-
-    .results-header {
-        @apply text-2xl font-semibold text-gray-800 mb-4;
-    }
-
-    .results-grid {
-        @apply grid grid-cols-1 md:grid-cols-2 gap-4;
-    }
-
-    .results-label {
-        @apply text-gray-600 text-sm;
-    }
-
-    .results-value {
-        @apply text-blue-700 text-3xl font-bold;
-    }
-
-    .info-message {
-        @apply p-4 bg-blue-100 text-blue-800 rounded-md border border-blue-200;
-    }
-
-    .input-grid {
-        @apply grid grid-cols-1 md:grid-cols-2 gap-6 mb-6;
-    }
-</style>
