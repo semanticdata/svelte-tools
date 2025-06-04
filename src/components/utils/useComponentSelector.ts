@@ -1,15 +1,15 @@
 import type { SvelteComponent } from 'svelte';
-import AddressExtractor from "./tools/AddressExtractor.svelte";
-import AreaCalculator from "./tools/AreaCalculator.svelte";
-import AsphaltCalculator from "./tools/AsphaltCalculator.svelte";
-import DateCalculator from "./tools/DateCalculator.svelte";
-import LinkChecker from "./tools/LinkChecker.svelte";
-import LoremGenerator from "./tools/LoremGenerator.svelte";
-import PomodoroTimer from "./tools/PomodoroTimer.svelte";
-import TextComparer from "./tools/TextComparer.svelte";
-import UnitConverter from "./tools/UnitConverter.svelte";
-import VolumeCalculator from "./tools/VolumeCalculator.svelte";
-import RegexTester from "./tools/RegexTester.svelte";
+import AddressExtractor from "../tools/AddressExtractor.svelte";
+import AreaCalculator from "../tools/AreaCalculator.svelte";
+import AsphaltCalculator from "../tools/AsphaltCalculator.svelte";
+import DateCalculator from "../tools/DateCalculator.svelte";
+import LinkChecker from "../tools/LinkChecker.svelte";
+import LoremGenerator from "../tools/LoremGenerator.svelte";
+import PomodoroTimer from "../tools/PomodoroTimer.svelte";
+import TextComparer from "../tools/TextComparer.svelte";
+import UnitConverter from "../tools/UnitConverter.svelte";
+import VolumeCalculator from "../tools/VolumeCalculator.svelte";
+import RegexTester from "../tools/RegexTester.svelte";
 
 type ComponentType = typeof SvelteComponent;
 

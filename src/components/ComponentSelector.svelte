@@ -5,7 +5,7 @@
     selectComponent,
     updateUrl,
     type ToolComponent,
-  } from "./useComponentSelector";
+  } from "./utils/useComponentSelector";
   import type { SvelteComponent } from "svelte";
 
   export let initialComponent: string | null = null;
