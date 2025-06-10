@@ -12,7 +12,7 @@ import VolumeCalculator from "../tools/VolumeCalculator.svelte";
 import RegexTester from "../tools/RegexTester.svelte";
 import PlaceholderTool from "../tools/PlaceholderTool.svelte";
 
-type ComponentType = typeof SvelteComponent;
+type ComponentType = typeof SvelteComponent<any, any, any>;
 
 export interface ToolComponent {
   id: string;
@@ -23,21 +23,6 @@ export interface ToolComponent {
 export interface ComponentCategory {
   [key: string]: ToolComponent[];
 }
-
-export const components: Record<string, ComponentType> = {
-  AddressExtractor,
-  AreaCalculator,
-  AsphaltCalculator,
-  DateCalculator,
-  LinkChecker,
-  LoremGenerator,
-  PomodoroTimer,
-  TextComparer,
-  UnitConverter,
-  VolumeCalculator,
-  RegexTester,
-  PlaceholderTool,
-};
 
 export const componentCategories: ComponentCategory = {
   Calculators: [
@@ -87,6 +72,17 @@ export const componentCategories: ComponentCategory = {
     { id: "PlaceholderTool", name: "Placeholder Tool", component: PlaceholderTool },
   ],
 };
+
+export const components: Record<string, ComponentType> = Object.values(
+  componentCategories
+)
+  .flat()
+  .reduce((acc, { id, component }) => {
+    acc[id] = component;
+    return acc;
+  }, {} as Record<string, ComponentType>);
+
+
 
 export function selectComponent(componentId: string | null): ComponentType | null {
   if (!componentId) return null;
