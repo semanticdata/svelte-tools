@@ -18,10 +18,13 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Text Input -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1"
+          <label
+            for="text-input"
+            class="block text-sm font-medium text-gray-700 mb-1"
             >Text Input</label
           >
           <input
+            id="text-input"
             type="text"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter text here"
@@ -30,10 +33,13 @@
 
         <!-- Select Dropdown -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1"
+          <label
+            for="select-option"
+            class="block text-sm font-medium text-gray-700 mb-1"
             >Select Option</label
           >
           <select
+            id="select-option"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="">Choose an option</option>
@@ -45,10 +51,13 @@
 
         <!-- Number Input -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1"
+          <label
+            for="number-input"
+            class="block text-sm font-medium text-gray-700 mb-1"
             >Number Input</label
           >
           <input
+            id="number-input"
             type="number"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="0"
@@ -59,11 +68,13 @@
         <div class="flex items-center">
           <div class="mt-6">
             <label class="inline-flex items-center cursor-pointer">
-              <input type="checkbox" class="sr-only peer" />
+              <input id="toggle-option" type="checkbox" class="sr-only peer" />
               <div
                 class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
               ></div>
-              <span class="ml-3 text-sm font-medium text-gray-700"
+              <span
+                for="toggle-option"
+                class="ml-3 text-sm font-medium text-gray-700"
                 >Toggle Option</span
               >
             </label>

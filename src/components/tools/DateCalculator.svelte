@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ComponentContainer from "../utils/ComponentContainer.svelte";
   let calculationMode: "add" | "difference" = "add";
   let startDate = new Date().toISOString().split("T")[0];
   let endDate = new Date().toISOString().split("T")[0];
@@ -36,13 +37,10 @@
   }
 </script>
 
-<div class="max-w-4xl mx-auto p-4">
-  <!-- Header Section -->
-  <div class="mb-8 text-center">
-    <h1 class="text-2xl font-bold text-gray-800 mb-2">Date Calculator</h1>
-    <p class="text-gray-600">Add, subtract, or compare dates easily.</p>
-  </div>
-
+<ComponentContainer
+  title="Date Calculator"
+  description="Add, subtract, or compare dates easily."
+>
   <!-- Main Content -->
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
     <!-- Input Section -->
@@ -53,10 +51,13 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Calculation Mode Selector -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1"
+          <label
+            for="calculation-mode"
+            class="block text-sm font-medium text-gray-700 mb-1"
             >Calculation Mode</label
           >
           <select
+            id="calculation-mode"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             bind:value={calculationMode}
           >
@@ -66,10 +67,13 @@
         </div>
         <!-- Start/First Date -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1"
+          <label
+            for="start-date"
+            class="block text-sm font-medium text-gray-700 mb-1"
             >{calculationMode === "add" ? "Start Date" : "First Date"}</label
           >
           <input
+            id="start-date"
             type="date"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             bind:value={startDate}
@@ -78,10 +82,13 @@
         <!-- Second Date or Years/Months/Days -->
         {#if calculationMode === "difference"}
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1"
+            <label
+              for="end-date"
+              class="block text-sm font-medium text-gray-700 mb-1"
               >Second Date</label
             >
             <input
+              id="end-date"
               type="date"
               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               bind:value={endDate}
@@ -90,30 +97,38 @@
         {:else}
           <div class="grid grid-cols-3 gap-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1"
+              <label
+                for="years-input"
+                class="block text-sm font-medium text-gray-700 mb-1"
                 >Years</label
               >
               <input
+                id="years-input"
                 type="number"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 bind:value={years}
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1"
+              <label
+                for="months-input"
+                class="block text-sm font-medium text-gray-700 mb-1"
                 >Months</label
               >
               <input
+                id="months-input"
                 type="number"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 bind:value={months}
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1"
-                >Days</label
+              <label
+                for="days-input"
+                class="block text-sm font-medium text-gray-700 mb-1">Days</label
               >
               <input
+                id="days-input"
                 type="number"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 bind:value={days}
@@ -213,4 +228,4 @@
       </div>
     </div>
   </div>
-</div>
+</ComponentContainer>

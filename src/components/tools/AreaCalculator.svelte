@@ -45,7 +45,10 @@
     }
 </script>
 
-<ComponentContainer title="Area Calculator" description="Calculate the area of different shapes.">
+<ComponentContainer
+    title="Area Calculator"
+    description="Calculate the area of different shapes."
+>
     <!-- Main Content -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
         <!-- Input Section -->
@@ -56,10 +59,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Shape Selector -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                    <label
+                        for="shape-selector"
+                        class="block text-sm font-medium text-gray-700 mb-1"
                         >Select Shape</label
                     >
                     <select
+                        id="shape-selector"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         bind:value={selectedShape}
                         on:change={handleShapeChange}
@@ -71,10 +77,13 @@
                 </div>
                 <!-- Unit Selector -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                    <label
+                        for="unit-selector"
+                        class="block text-sm font-medium text-gray-700 mb-1"
                         >Unit of Measurement</label
                     >
                     <select
+                        id="unit-selector"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         bind:value={selectedUnit}
                     >
@@ -87,10 +96,12 @@
                 {#if selectedShape === "rectangle"}
                     <div>
                         <label
+                            for="rectangle-length"
                             class="block text-sm font-medium text-gray-700 mb-1"
                             >Length</label
                         >
                         <input
+                            id="rectangle-length"
                             type="number"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter length"
@@ -101,10 +112,12 @@
                     </div>
                     <div>
                         <label
+                            for="rectangle-width"
                             class="block text-sm font-medium text-gray-700 mb-1"
                             >Width</label
                         >
                         <input
+                            id="rectangle-width"
                             type="number"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter width"
@@ -118,10 +131,12 @@
                 {#if selectedShape === "triangle"}
                     <div>
                         <label
+                            for="triangle-base"
                             class="block text-sm font-medium text-gray-700 mb-1"
                             >Base</label
                         >
                         <input
+                            id="triangle-base"
                             type="number"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter base"
@@ -132,10 +147,12 @@
                     </div>
                     <div>
                         <label
+                            for="triangle-height"
                             class="block text-sm font-medium text-gray-700 mb-1"
                             >Height</label
                         >
                         <input
+                            id="triangle-height"
                             type="number"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter height"
@@ -149,10 +166,12 @@
                 {#if selectedShape === "arc"}
                     <div>
                         <label
+                            for="arc-radius"
                             class="block text-sm font-medium text-gray-700 mb-1"
                             >Radius</label
                         >
                         <input
+                            id="arc-radius"
                             type="number"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter radius"
@@ -163,10 +182,12 @@
                     </div>
                     <div>
                         <label
+                            for="arc-angle"
                             class="block text-sm font-medium text-gray-700 mb-1"
                             >Angle (degrees)</label
                         >
                         <input
+                            id="arc-angle"
                             type="number"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Enter angle (0-360)"

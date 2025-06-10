@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import ComponentContainer from "../utils/ComponentContainer.svelte";
 
     // Shape type and dimensions
     let selectedShape = "rectangular_prism";
@@ -101,22 +102,22 @@
         widthUnit === heightUnit;
 </script>
 
-<div class="max-w-4xl mx-auto p-4">
+<ComponentContainer
+    title="Volume Calculator"
+    description="Calculate the volume of different shapes."
+>
     <div class="bg-white rounded-lg shadow-md p-6">
-        <header class="mb-6 border-b pb-4">
-            <h1 class="text-3xl font-bold text-gray-900">Volume Calculator</h1>
-            <p class="mt-2 text-gray-600">
-                Calculate the volume of different shapes.
-            </p>
-        </header>
         <main class="space-y-6">
             <section>
-                <label class="block text-sm font-medium text-gray-700 mb-2"
+                <label
+                    for="shape-select"
+                    class="block text-sm font-medium text-gray-700 mb-2"
                     >Select Shape</label
                 >
-                <div class="flex flex-wrap gap-4">
+                <div id="shape-select" class="flex flex-wrap gap-4">
                     <label class="flex items-center cursor-pointer">
                         <input
+                            id="rectangular_prism_radio"
                             type="radio"
                             bind:group={selectedShape}
                             value="rectangular_prism"
@@ -127,6 +128,7 @@
                     </label>
                     <label class="flex items-center cursor-pointer">
                         <input
+                            id="cylinder_radio"
                             type="radio"
                             bind:group={selectedShape}
                             value="cylinder"
@@ -137,6 +139,7 @@
                     </label>
                     <label class="flex items-center cursor-pointer">
                         <input
+                            id="sphere_radio"
                             type="radio"
                             bind:group={selectedShape}
                             value="sphere"
@@ -151,10 +154,12 @@
                 <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
                         <label
+                            for="length-input"
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Length</label
                         >
                         <input
+                            id="length-input"
                             type="number"
                             bind:value={length}
                             min="0"
@@ -163,6 +168,7 @@
                             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                         />
                         <select
+                            id="length-unit"
                             bind:value={lengthUnit}
                             class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
                         >
@@ -175,10 +181,12 @@
                     </div>
                     <div>
                         <label
+                            for="width-input"
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Width</label
                         >
                         <input
+                            id="width-input"
                             type="number"
                             bind:value={width}
                             min="0"
@@ -187,6 +195,7 @@
                             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                         />
                         <select
+                            id="width-unit"
                             bind:value={widthUnit}
                             class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
                         >
@@ -199,10 +208,12 @@
                     </div>
                     <div>
                         <label
+                            for="height-input-prism"
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Height</label
                         >
                         <input
+                            id="height-input-prism"
                             type="number"
                             bind:value={height}
                             min="0"
@@ -211,6 +222,7 @@
                             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                         />
                         <select
+                            id="height-unit-prism"
                             bind:value={heightUnit}
                             class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
                         >
@@ -233,10 +245,12 @@
                 <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label
+                            for="radius-input-cylinder"
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Radius</label
                         >
                         <input
+                            id="radius-input-cylinder"
                             type="number"
                             bind:value={radius}
                             min="0"
@@ -245,6 +259,7 @@
                             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                         />
                         <select
+                            id="radius-unit-cylinder"
                             bind:value={radiusUnit}
                             class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
                         >
@@ -257,10 +272,12 @@
                     </div>
                     <div>
                         <label
+                            for="height-input-cylinder"
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Height</label
                         >
                         <input
+                            id="height-input-cylinder"
                             type="number"
                             bind:value={height}
                             min="0"
@@ -269,6 +286,7 @@
                             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                         />
                         <select
+                            id="height-unit-cylinder"
                             bind:value={heightUnit}
                             class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
                         >
@@ -284,10 +302,12 @@
                 <section class="grid grid-cols-1 md:grid-cols-1 gap-6">
                     <div>
                         <label
+                            for="radius-input-sphere"
                             class="block text-sm font-medium text-gray-700 mb-2"
                             >Radius</label
                         >
                         <input
+                            id="radius-input-sphere"
                             type="number"
                             bind:value={radius}
                             min="0"
@@ -296,6 +316,7 @@
                             class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                         />
                         <select
+                            id="radius-unit-sphere"
                             bind:value={radiusUnit}
                             class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 mt-2"
                         >
@@ -309,10 +330,13 @@
                 </section>
             {/if}
             <section>
-                <label class="block text-sm font-medium text-gray-700 mb-2"
+                <label
+                    for="output-unit"
+                    class="block text-sm font-medium text-gray-700 mb-2"
                     >Output Unit</label
                 >
                 <select
+                    id="output-unit"
                     bind:value={outputUnit}
                     class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
                 >
@@ -396,4 +420,4 @@
             </section>
         </main>
     </div>
-</div>
+</ComponentContainer>
