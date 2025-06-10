@@ -23,7 +23,7 @@ just.text`;
         matches = null;
       }
     } catch (e) {
-      error = e.message;
+      error = (e as Error).message;
       matches = null;
     }
   }
