@@ -1,4 +1,5 @@
 <script>
+    import ComponentContainer from "../utils/ComponentContainer.svelte";
     // Logic unchanged, but script block moved to top for consistency
     let selectedShape = "rectangle";
     let length = "";
@@ -44,13 +45,7 @@
     }
 </script>
 
-<div class="max-w-4xl mx-auto p-4">
-    <!-- Header Section -->
-    <div class="mb-8 text-center">
-        <h1 class="text-2xl font-bold text-gray-800 mb-2">Area Calculator</h1>
-        <p class="text-gray-600">Calculate the area of different shapes.</p>
-    </div>
-
+<ComponentContainer title="Area Calculator" description="Calculate the area of different shapes.">
     <!-- Main Content -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
         <!-- Input Section -->
@@ -277,4 +272,4 @@
             </div>
         </div>
     </div>
-</div>
+</ComponentContainer>

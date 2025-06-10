@@ -1,14 +1,12 @@
 <script lang="ts">
+  import ComponentContainer from "../utils/ComponentContainer.svelte";
   // No logic needed for placeholder
 </script>
 
-<div class="max-w-4xl mx-auto p-4">
-  <!-- Header Section -->
-  <div class="mb-8 text-center">
-    <h1 class="text-2xl font-bold text-gray-800 mb-2">Placeholder Tool</h1>
-    <p class="text-gray-600">Use this tool to test layouts and styles</p>
-  </div>
-
+<ComponentContainer
+  title="Placeholder Tool"
+  description="Use this tool to test layouts and styles"
+>
   <!-- Main Content -->
   <div class="bg-white rounded-lg shadow-md p-6 mb-6">
     <!-- Input Section -->
@@ -165,11 +163,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<style>
-  /* Add any custom styles here if needed */
-  :global(body) {
-    background-color: #f9fafb; /* bg-gray-50 */
-  }
-</style>
+</ComponentContainer>
