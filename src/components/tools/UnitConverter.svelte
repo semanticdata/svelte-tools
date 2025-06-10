@@ -306,39 +306,3 @@
         {/if}
     </div>
 </ComponentContainer>
-
-<style>
-    /* Basic styling for the tool - can be expanded or moved to a global CSS file */
-    .tool-content {
-        @apply bg-white p-6 rounded-lg shadow-md;
-    }
-
-    .form-label {
-        @apply block text-sm font-medium text-gray-700 mb-1;
-    }
-
-    .form-input,
-    .form-select {
-        @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-    }
-
-    .button-secondary {
-        @apply px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
-    }
-
-    .result-display {
-        @apply bg-gray-50 p-4 rounded-lg border border-gray-200;
-    }
-
-    .alert {
-        @apply p-3 rounded-md;
-    }
-
-    .alert-danger {
-        @apply bg-red-100 border border-red-300 text-red-700;
-    }
-
-    .recent-conversions {
-        @apply mt-6 pt-4 border-t border-gray-200;
-    }
-</style>
