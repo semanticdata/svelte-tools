@@ -189,106 +189,166 @@
     title="Unit Converter"
     description="Convert different units of measurement."
 >
-    <div class="tool-content">
-        <div class="mb-4">
-            <label for="conversionType" class="form-label"
-                >Conversion Type</label
-            >
-            <select
-                id="conversionType"
-                class="form-select"
-                bind:value={selectedType}
-                on:change={handleTypeChange}
-            >
-                {#each conversionTypes as type}
-                    <option value={type.id}>{type.name}</option>
-                {/each}
-            </select>
-        </div>
+    <!-- Main Content -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <!-- Input Section -->
+        <div class="space-y-4 mb-6">
+            <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">
+                Input Parameters
+            </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-4">
-            <div class="md:col-span-1">
-                <label for="inputValue" class="form-label"
-                    >Value to Convert</label
-                >
-                <input
-                    id="inputValue"
-                    type="number"
-                    class="form-input"
-                    bind:value={inputValue}
-                    on:input={handleUserInput}
-                    placeholder="Enter value"
-                />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Conversion Type -->
+                <div>
+                    <label
+                        for="conversionType"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Conversion Type</label
+                    >
+                    <select
+                        id="conversionType"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        bind:value={selectedType}
+                        on:change={handleTypeChange}
+                    >
+                        {#each conversionTypes as type}
+                            <option value={type.id}>{type.name}</option>
+                        {/each}
+                    </select>
+                </div>
+
+                <!-- Value to Convert -->
+                <div>
+                    <label
+                        for="inputValue"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Value to Convert</label
+                    >
+                    <input
+                        id="inputValue"
+                        type="number"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        bind:value={inputValue}
+                        on:input={handleUserInput}
+                        placeholder="Enter value"
+                    />
+                </div>
+
+                <!-- From Unit -->
+                <div>
+                    <label
+                        for="fromUnit"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >From Unit</label
+                    >
+                    <select
+                        id="fromUnit"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        bind:value={fromUnit}
+                        on:change={handleUnitChange}
+                    >
+                        {#each availableUnits as unit}
+                            <option value={unit.id}>{unit.name}</option>
+                        {/each}
+                    </select>
+                </div>
+
+                <!-- To Unit -->
+                <div>
+                    <label
+                        for="toUnit"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >To Unit</label
+                    >
+                    <select
+                        id="toUnit"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        bind:value={toUnit}
+                        on:change={handleUnitChange}
+                    >
+                        {#each availableUnits as unit}
+                            <option value={unit.id}>{unit.name}</option>
+                        {/each}
+                    </select>
+                </div>
             </div>
 
-            <div class="md:col-span-1">
-                <label for="fromUnit" class="form-label">From Unit</label>
-                <select
-                    id="fromUnit"
-                    class="form-select"
-                    bind:value={fromUnit}
-                    on:change={handleUnitChange}
-                >
-                    {#each availableUnits as unit}
-                        <option value={unit.id}>{unit.name}</option>
-                    {/each}
-                </select>
-            </div>
-
-            <div class="md:col-span-1 flex justify-center items-end">
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3 pt-2">
                 <button
                     type="button"
-                    class="button-secondary p-2"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     on:click={swapUnits}
-                    aria-label="Swap units"
                 >
-                    <!-- Swap Icon -->
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            fill-rule="evenodd"
-                            d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm0 14a1 1 0 01-.707-.293l-3-3a1 1 0 011.414-1.414L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3A1 1 0 0110 17z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
+                    Swap Units
+                </button>
+                <button
+                    type="button"
+                    class="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    on:click={() => {
+                        inputValue = 1;
+                        userHasModifiedInput = false;
+                        calculateConversion(false);
+                    }}
+                >
+                    Reset
                 </button>
             </div>
         </div>
 
-        <div class="mb-6">
-            <label for="toUnit" class="form-label">To Unit</label>
-            <select
-                id="toUnit"
-                class="form-select"
-                bind:value={toUnit}
-                on:change={handleUnitChange}
-            >
-                {#each availableUnits as unit}
-                    <option value={unit.id}>{unit.name}</option>
-                {/each}
-            </select>
-        </div>
-
         {#if errorMessage}
-            <div class="alert alert-danger mb-4">{errorMessage}</div>
+            <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg
+                            class="h-5 w-5 text-red-400"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700">{errorMessage}</p>
+                    </div>
+                </div>
+            </div>
         {/if}
 
-        <div class="result-display mb-6">
-            <h3 class="text-lg font-semibold mb-1">Result:</h3>
-            <p class="text-2xl font-bold text-blue-600">
-                {formatNumber(result)}
-                {availableUnits.find((u) => u.id === toUnit)?.name || ""}
-            </p>
+        <!-- Results Section -->
+        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-700 mb-3">Results</h2>
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+                <!-- Main Result Card -->
+                <div class="bg-white p-4 rounded-md border border-gray-200">
+                    <div class="text-sm font-medium text-gray-500">
+                        Converted Value
+                    </div>
+                    <div class="text-2xl font-bold text-gray-800">
+                        {formatNumber(result)}
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">
+                        {availableUnits.find((u) => u.id === toUnit)?.name ||
+                            ""}
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        {#if recentConversions.length > 0}
-            <div class="recent-conversions">
-                <h3 class="text-lg font-semibold mb-2">Recent Conversions:</h3>
-                <ul class="list-disc pl-5 space-y-1 text-sm text-gray-600">
+    <!-- Additional Information Section -->
+    {#if recentConversions.length > 0}
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold text-gray-700 mb-3">
+                Recent Conversions
+            </h2>
+            <div class="prose max-w-none text-gray-600">
+                <ul class="list-disc pl-5 space-y-1 mb-4">
                     {#each recentConversions as conv}
                         <li>
                             {conv.inputValue}
@@ -303,6 +363,6 @@
                     {/each}
                 </ul>
             </div>
-        {/if}
-    </div>
+        </div>
+    {/if}
 </ComponentContainer>

@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import ComponentContainer from "../utils/ComponentContainer.svelte";
 
     let text1 = "";
     let text2 = "";
@@ -200,145 +201,246 @@
     }
 </script>
 
-<div class="tool-container">
-    <!-- Header Section -->
-    <header class="tool-header">
-        <h1 class="text-3xl font-bold text-gray-900">Text Comparer</h1>
-        <p class="mt-2 text-gray-600">
-            Compare two texts and see the differences.
-        </p>
-    </header>
+<ComponentContainer
+    title="Text Comparer"
+    description="Compare two texts and see the differences side by side"
+>
+    <!-- Main Content -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <!-- Input Section -->
+        <div class="space-y-4 mb-6">
+            <h2 class="text-lg font-semibold text-gray-700 border-b pb-2">
+                Input Parameters
+            </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div>
-            <label for="text1" class="form-label">Original Text</label>
-            <textarea
-                id="text1"
-                bind:value={text1}
-                class="form-input h-64"
-                placeholder="Enter the original text here..."
-            ></textarea>
-        </div>
-
-        <div>
-            <label for="text2" class="form-label">Modified Text</label>
-            <textarea
-                id="text2"
-                bind:value={text2}
-                class="form-input h-64"
-                placeholder="Enter the modified text here..."
-            ></textarea>
-        </div>
-    </div>
-
-    <div class="flex justify-center space-x-4 mb-6">
-        <button
-            on:click={computeDiff}
-            class="btn-primary"
-            disabled={isProcessing || !text1.trim() || !text2.trim()}
-        >
-            {isProcessing ? "Processing..." : "Compare Texts"}
-        </button>
-
-        <button on:click={clearAll} class="btn-secondary"> Clear All </button>
-
-        <button
-            on:click={copyDiffResult}
-            class="btn-primary"
-            disabled={diffResult.length === 0}
-        >
-            Copy Result
-        </button>
-    </div>
-
-    {#if diffResult.length > 0}
-        <div class="results-section">
-            {#if textsAreIdentical}
-                <div class="feedback feedback-info flex items-center">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Original Text -->
+                <div>
+                    <label
+                        for="text1"
+                        class="block text-sm font-medium text-gray-700 mb-1"
                     >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                    </svg>
-                    <span class="font-medium"
-                        >The texts are identical! No differences found.</span
-                    >
+                        Original Text
+                    </label>
+                    <textarea
+                        id="text1"
+                        bind:value={text1}
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-64 resize-none"
+                        placeholder="Enter the original text here..."
+                    ></textarea>
                 </div>
-            {:else}
-                <div
-                    class="border border-gray-300 rounded-md bg-gray-50 overflow-x-auto"
+
+                <!-- Modified Text -->
+                <div>
+                    <label
+                        for="text2"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                        Modified Text
+                    </label>
+                    <textarea
+                        id="text2"
+                        bind:value={text2}
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-64 resize-none"
+                        placeholder="Enter the modified text here..."
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3 pt-2">
+                <button
+                    on:click={computeDiff}
+                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isProcessing || !text1.trim() || !text2.trim()}
                 >
-                    <div class="grid grid-cols-2 divide-x divide-gray-300">
-                        <!-- Headers -->
-                        <div class="p-2 font-medium text-gray-700 bg-gray-200">
-                            Original Text
-                        </div>
-                        <div class="p-2 font-medium text-gray-700 bg-gray-200">
-                            Modified Text
-                        </div>
+                    {isProcessing ? "Processing..." : "Compare Texts"}
+                </button>
 
-                        <!-- Content -->
-                        <div class="text-sm font-mono whitespace-pre-wrap">
-                            {#each leftLines as line}
-                                <div class="flex border-b border-gray-200">
-                                    <div
-                                        class="w-8 flex-shrink-0 text-right pr-2 text-gray-500 border-r border-gray-300"
-                                    >
-                                        {line.lineNum || " "}
-                                    </div>
-                                    <div
-                                        class="p-1 w-full {line.type ===
-                                        'unchanged'
-                                            ? 'bg-white'
-                                            : line.type === 'removed'
-                                              ? 'bg-red-100' // Use Tailwind red-100 for removed lines
-                                              : 'bg-gray-100'}"
-                                    >
-                                        {line.text}
-                                    </div>
-                                </div>
-                            {/each}
-                        </div>
+                <button
+                    on:click={clearAll}
+                    class="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                    Clear All
+                </button>
 
-                        <div class="text-sm font-mono whitespace-pre-wrap">
-                            {#each rightLines as line}
-                                <div class="flex border-b border-gray-200">
-                                    <div
-                                        class="w-8 flex-shrink-0 text-right pr-2 text-gray-500 border-r border-gray-300"
-                                    >
-                                        {line.lineNum || " "}
-                                    </div>
-                                    <div
-                                        class="p-1 w-full {line.type ===
-                                        'unchanged'
-                                            ? 'bg-white'
-                                            : line.type === 'added'
-                                              ? 'bg-green-100' // Use Tailwind green-100 for added lines
-                                              : 'bg-gray-100'}"
-                                    >
-                                        {line.text}
-                                    </div>
-                                </div>
-                            {/each}
+                <button
+                    on:click={copyDiffResult}
+                    class="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={diffResult.length === 0}
+                >
+                    Copy Result
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        {#if diffResult.length > 0}
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-700 mb-3">
+                    Comparison Results
+                </h2>
+
+                {#if textsAreIdentical}
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg
+                                    class="h-5 w-5 text-blue-400"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h2a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-blue-700 font-medium">
+                                    The texts are identical! No differences
+                                    found.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {/if}
-        </div>
+                {:else}
+                    <div
+                        class="bg-white rounded-md border border-gray-200 overflow-hidden"
+                    >
+                        <div class="grid grid-cols-2 divide-x divide-gray-300">
+                            <!-- Headers -->
+                            <div
+                                class="p-3 font-medium text-gray-700 bg-gray-100 border-b border-gray-200"
+                            >
+                                Original Text
+                            </div>
+                            <div
+                                class="p-3 font-medium text-gray-700 bg-gray-100 border-b border-gray-200"
+                            >
+                                Modified Text
+                            </div>
 
-        {#if diffResult.length === 0 && text1.trim() && text2.trim()}
-            <div class="feedback feedback-info text-center">
-                Click "Compare Texts" to see the differences.
+                            <!-- Content -->
+                            <div
+                                class="text-sm font-mono whitespace-pre-wrap max-h-96 overflow-y-auto"
+                            >
+                                {#each leftLines as line}
+                                    <div
+                                        class="flex border-b border-gray-100 last:border-b-0"
+                                    >
+                                        <div
+                                            class="w-10 flex-shrink-0 text-right pr-2 py-1 text-gray-500 border-r border-gray-200 bg-gray-50"
+                                        >
+                                            {line.lineNum || " "}
+                                        </div>
+                                        <div
+                                            class="p-2 w-full {line.type ===
+                                            'unchanged'
+                                                ? 'bg-white'
+                                                : line.type === 'removed'
+                                                  ? 'bg-red-50'
+                                                  : 'bg-gray-50'}"
+                                        >
+                                            {line.text || " "}
+                                        </div>
+                                    </div>
+                                {/each}
+                            </div>
+
+                            <div
+                                class="text-sm font-mono whitespace-pre-wrap max-h-96 overflow-y-auto"
+                            >
+                                {#each rightLines as line}
+                                    <div
+                                        class="flex border-b border-gray-100 last:border-b-0"
+                                    >
+                                        <div
+                                            class="w-10 flex-shrink-0 text-right pr-2 py-1 text-gray-500 border-r border-gray-200 bg-gray-50"
+                                        >
+                                            {line.lineNum || " "}
+                                        </div>
+                                        <div
+                                            class="p-2 w-full {line.type ===
+                                            'unchanged'
+                                                ? 'bg-white'
+                                                : line.type === 'added'
+                                                  ? 'bg-green-50'
+                                                  : 'bg-gray-50'}"
+                                        >
+                                            {line.text || " "}
+                                        </div>
+                                    </div>
+                                {/each}
+                            </div>
+                        </div>
+                    </div>
+                {/if}
             </div>
         {/if}
-    {/if}
-</div>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-700 mb-3">
+            How Text Comparison Works
+        </h2>
+        <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+                This tool compares two texts line by line and highlights the
+                differences between them. It uses a simple diff algorithm to
+                identify added, removed, and unchanged lines.
+            </p>
+
+            <h3 class="text-md font-semibold text-gray-800 mt-4 mb-2">
+                Color Legend
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 mb-4">
+                <li>
+                    <span
+                        class="inline-block w-4 h-4 bg-green-50 border border-green-200 rounded mr-2"
+                    ></span>Green background: Added lines
+                </li>
+                <li>
+                    <span
+                        class="inline-block w-4 h-4 bg-red-50 border border-red-200 rounded mr-2"
+                    ></span>Red background: Removed lines
+                </li>
+                <li>
+                    <span
+                        class="inline-block w-4 h-4 bg-white border border-gray-200 rounded mr-2"
+                    ></span>White background: Unchanged lines
+                </li>
+            </ul>
+
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 my-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg
+                            class="h-5 w-5 text-blue-400"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h2a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-blue-700">
+                            The comparison is performed line by line. For more
+                            complex diff operations, consider using specialized
+                            tools that can handle word-level or character-level
+                            differences.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ComponentContainer>

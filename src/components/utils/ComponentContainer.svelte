@@ -11,9 +11,9 @@
   </div>
 
   <!-- Main Content Slot -->
-  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <slot></slot>
-  </div>
+  <!-- <div class="bg-white rounded-lg shadow-md p-6 mb-6"> -->
+  <slot></slot>
+  <!-- </div> -->
 
   <!-- Optional: Additional Information Section -->
   <!-- You can add a slot here if needed, or specific content -->
